@@ -14,6 +14,9 @@ import org.jaudiotagger.audio.AudioFileFilter;
 public class AudioLibraryReader {
 
 	public File[] getAudioFiles(File audioLibraryDirectory) {
-		return audioLibraryDirectory.listFiles(new AudioFileFilter(false));
+		if (audioLibraryDirectory == null) 
+			return null;
+		else 
+			return audioLibraryDirectory.listFiles(new AudioFileFilter(false));
 	}
 }
