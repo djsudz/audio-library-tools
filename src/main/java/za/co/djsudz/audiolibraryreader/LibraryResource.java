@@ -1,4 +1,4 @@
-package za.co.djsudz;
+package za.co.djsudz.audiolibraryreader;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
