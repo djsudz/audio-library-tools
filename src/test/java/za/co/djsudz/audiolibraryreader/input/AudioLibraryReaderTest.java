@@ -16,19 +16,31 @@ import org.junit.jupiter.api.Test;
 class AudioLibraryReaderTest {
 
 	/**
-	 * Test method for {@link za.co.djsudz.audiolibraryreader.input.AudioLibraryReader#getAudioFiles(java.io.File)}.
+	 * Test method for {@link za.co.djsudz.audiolibraryreader.input.AudioLibraryReader(java.lang.String)}.
 	 */
 	@Test
-	void testGetAudioFiles() {
-		File sampleAudioDirectory = new File("src/test/resources/sampleAudioDirectory");
-		//System.out.println("Dir Name: " + sampleAudioDirectory.getName());
-		assertTrue(sampleAudioDirectory.exists());
+	void testAudioLibraryReaderString() {
+		String sampleAudioPath = "src/test/resources/sampleAudioDirectory";
 		
-		AudioLibraryReader audioLibaryReader = new AudioLibraryReader();
-		File[] audioFiles = audioLibaryReader.getAudioFiles(sampleAudioDirectory);
+		AudioLibraryReader audioLibaryReader = new AudioLibraryReader(sampleAudioPath);
 
-		assertEquals(1, audioFiles.length);
-		File sampleAudioFile = audioFiles[0];
+		assertEquals(1, audioLibaryReader.getAudioLibrary().getAudioFileTotal());
+		File sampleAudioFile = audioLibaryReader.getAudioLibrary().getAudioFiles().get(0).getFile();
+		String sampleAudioFileName = "sampleAudioMp3.mp3";
+		assertTrue(sampleAudioFileName.equals(sampleAudioFile.getName()));
+	}
+	
+	/**
+	 * Test method for {@link za.co.djsudz.audiolibraryreader.input.AudioLibraryReader(java.io.File)}.
+	 */
+	@Test
+	void testAudioLibraryReaderFile() {
+		File sampleAudioDirectory = new File("src/test/resources/sampleAudioDirectory");
+		
+		AudioLibraryReader audioLibaryReader = new AudioLibraryReader(sampleAudioDirectory);
+
+		assertEquals(1, audioLibaryReader.getAudioLibrary().getAudioFileTotal());
+		File sampleAudioFile = audioLibaryReader.getAudioLibrary().getAudioFiles().get(0).getFile();
 		String sampleAudioFileName = "sampleAudioMp3.mp3";
 		assertTrue(sampleAudioFileName.equals(sampleAudioFile.getName()));
 	}

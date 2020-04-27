@@ -30,19 +30,27 @@ public class AudioLibrary {
 		this.fAudioFileTotal = 0;
 	}
 	
-	public AudioLibrary(File audioLibaryDirectory) {
-		setAudioFiles(getAudioFilesFromSourceDir(audioLibaryDirectory));
+	public AudioLibrary(File audioLibraryDirectory) {
+		this(audioLibraryDirectory, true);
+	}
+	
+	public AudioLibrary(File audioLibaryDirectory, boolean recurse) {
+		setAudioFiles(getAudioFilesFromSourceDir(audioLibaryDirectory, recurse));
 		setAudioFileTotal(this.fAudioFiles.size());
 	}
 	
 	public AudioLibrary(String audioLibaryPath) {
-		this(new File(audioLibaryPath));
+		this(audioLibaryPath, true);
 	}
 	
-	private ArrayList<AudioFile> getAudioFilesFromSourceDir(File audioLibaryDirectory) {
+	public AudioLibrary(String audioLibraryPath, boolean recurse) {
+		this(new File(audioLibraryPath), recurse);
+	}
+	
+	public ArrayList<AudioFile> getAudioFilesFromSourceDir(File audioLibraryDirectory, boolean recurse) {
 		ArrayList<AudioFile> audioFiles = new ArrayList<>();
 		
-		File[] files = audioLibaryDirectory.listFiles(new AudioFileFilter(false));
+		File[] files = audioLibraryDirectory.listFiles(new AudioFileFilter(recurse));
 		for (File file : files) {
 			try {
 				audioFiles.add(AudioFileIO.read(file));

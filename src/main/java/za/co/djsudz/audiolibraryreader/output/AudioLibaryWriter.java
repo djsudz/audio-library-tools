@@ -3,7 +3,11 @@
  */
 package za.co.djsudz.audiolibraryreader.output;
 
-import java.io.File;
+import org.jaudiotagger.audio.AudioFile;
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.exceptions.CannotWriteException;
+
+import za.co.djsudz.audiolibraryreader.model.AudioLibrary;
 
 /**
  * @author Sudheer
@@ -11,14 +15,19 @@ import java.io.File;
  */
 public class AudioLibaryWriter {
 	
-	public void writeLibrary(File[] audioFiles) {
-		for (File audioFile : audioFiles) {
+	public void writeLibrary(AudioLibrary audioLibrary) {
+		for (AudioFile audioFile : audioLibrary.getAudioFiles()) {
 			writeAudioFile(audioFile);
 		}
 	}
 	
-	private void writeAudioFile(File audioFile) {
-		
+	private void writeAudioFile(AudioFile audioFile) {
+		try {
+			AudioFileIO.write(audioFile);
+		} catch (CannotWriteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
