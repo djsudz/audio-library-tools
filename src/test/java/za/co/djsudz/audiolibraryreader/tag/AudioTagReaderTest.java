@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 class AudioTagReaderTest {
 	
-	private static Tag audioTag = null;
+	private static AudioTagReader audioTagReader = null;
 	
 	@BeforeAll
 	private static void init() {
@@ -26,7 +26,8 @@ class AudioTagReaderTest {
 		assertTrue(sampleAudioFile.exists());
 				
 		try {
-			audioTag = AudioTagReader.readAudioTag(sampleAudioFile);
+			audioTagReader = new AudioTagReader(sampleAudioFile);
+			//audioTag = AudioTagReader.readAudioTag(sampleAudioFile);
 		} catch (CannotReadException | IOException | TagException | ReadOnlyFileException
 				| InvalidAudioFrameException e) {
 			// TODO Auto-generated catch block
@@ -38,52 +39,52 @@ class AudioTagReaderTest {
 	@Test
 	void testReadAudioTag() {	
 		//Check Tag Field Count
-		assertEquals(10, audioTag.getFieldCount());			
+		assertEquals(10, audioTagReader.getTagCount());			
 	}
 	
 	@Test
 	void testGetArtist() {
-		assertTrue("Sample Artist".equals(AudioTagReader.getArtist(audioTag)));
+		assertTrue("Sample Artist".equals(audioTagReader.getArtist()));
 	}
 	
 	@Test
 	void testGetTitle() {
-		assertTrue("Sample Title".equals(AudioTagReader.getTitle(audioTag)));
+		assertTrue("Sample Title".equals(audioTagReader.getTitle()));
 	}
 	
 	@Test
 	void testGetAlbum() {
-		assertTrue("Sample Album".equals(AudioTagReader.getAlbum(audioTag)));
+		assertTrue("Sample Album".equals(audioTagReader.getAlbum()));
 	}
 	
 	@Test
 	void testGetAlbumArtist() {
-		assertTrue("Sample Album Artist".equals(AudioTagReader.getAlbumArtist(audioTag)));
+		assertTrue("Sample Album Artist".equals(audioTagReader.getAlbumArtist()));
 	}
 	
 	@Test
 	void testGetComposer() {
-		assertTrue("Sample Composer".equals(AudioTagReader.getComposer(audioTag)));
+		assertTrue("Sample Composer".equals(audioTagReader.getComposer()));
 	}
 	
 	@Test
 	void testGetGenre() {
-		assertTrue("Sample Genre".equals(AudioTagReader.getGenre(audioTag)));
+		assertTrue("Sample Genre".equals(audioTagReader.getGenre()));
 	}
 	
 	@Test
 	void testGetYear() {
-		assertTrue("2020".equals(AudioTagReader.getYear(audioTag)));
+		assertTrue("2020".equals(audioTagReader.getYear()));
 	}
 	
 	@Test
 	void testGetTrackNumber() {
-		assertTrue("01".equals(AudioTagReader.getTrackNumber(audioTag)));
+		assertTrue("01".equals(audioTagReader.getTrackNumber()));
 	}
 	
 	@Test
 	void testGetComment() {
-		assertTrue("Sample Comment".equals(AudioTagReader.getComment(audioTag)));
+		assertTrue("Sample Comment".equals(audioTagReader.getComment()));
 
 	}
 	
@@ -97,7 +98,7 @@ class AudioTagReaderTest {
 		Artwork sampleArtwork;
 		try {
 			sampleArtwork = ArtworkFactory.createArtworkFromFile(sampleArtworkFile);
-			Artwork tagArtwork = AudioTagReader.getArtwork(audioTag);
+			Artwork tagArtwork = audioTagReader.getArtwork();
 			assertEquals(sampleArtwork.getBinaryData().length, tagArtwork.getBinaryData().length);
 			assertEquals(sampleArtwork.getHeight(), tagArtwork.getHeight());
 			assertEquals(sampleArtwork.getWidth(), tagArtwork.getWidth());

@@ -21,54 +21,93 @@ import org.jaudiotagger.tag.images.Artwork;
  *
  */
 public class AudioTagReader {
-
-	public static Tag readAudioTag(File srcAudioFile) throws CannotReadException, IOException, 
-							TagException, ReadOnlyFileException, InvalidAudioFrameException {
-		if (srcAudioFile == null)
-			return null;
+	
+	private File srcFile;
+	private Tag tag;
+	
+	public AudioTagReader() {
+		//Default Constructor
+	}
+	
+	public AudioTagReader(File srcFile) throws CannotReadException, IOException, TagException, ReadOnlyFileException, InvalidAudioFrameException {
+		this.srcFile = srcFile;
+		if (srcFile == null)
+			this.tag = null;
 		else {
-			AudioFile audioFile = AudioFileIO.read(srcAudioFile);
-			return audioFile.getTag();
+			AudioFile audioFile = AudioFileIO.read(srcFile);
+			this.tag = audioFile.getTag();
 		}
 	}
 	
-	public static String getArtist(Tag tag) {		
-		return tag.getFirst(FieldKey.ARTIST);
+	public int getTagCount() {
+		return getTag().getFieldCount();
 	}
 	
-	public static String getTitle(Tag tag) {
-		return tag.getFirst(FieldKey.TITLE);
+	public String getArtist() {		
+		return getTag().getFirst(FieldKey.ARTIST);
 	}
 	
-	public static String getAlbum(Tag tag) {
-		return tag.getFirst(FieldKey.ALBUM);
+	public String getTitle() {
+		return getTag().getFirst(FieldKey.TITLE);
 	}
 	
-	public static String getAlbumArtist(Tag tag) {
-		return tag.getFirst(FieldKey.ALBUM_ARTIST);
+	public String getAlbum() {
+		return getTag().getFirst(FieldKey.ALBUM);
 	}
 	
-	public static String getGenre(Tag tag) {
-		return tag.getFirst(FieldKey.GENRE);
+	public String getAlbumArtist() {
+		return getTag().getFirst(FieldKey.ALBUM_ARTIST);
 	}
 	
-	public static String getComposer(Tag tag) {
-		return tag.getFirst(FieldKey.COMPOSER);
+	public String getGenre() {
+		return getTag().getFirst(FieldKey.GENRE);
 	}
 	
-	public static String getComment(Tag tag) {
-		return tag.getFirst(FieldKey.COMMENT);
+	public String getComposer() {
+		return getTag().getFirst(FieldKey.COMPOSER);
 	}
 	
-	public static String getYear(Tag tag) {
-		return tag.getFirst(FieldKey.YEAR);
+	public String getComment() {
+		return getTag().getFirst(FieldKey.COMMENT);
 	}
 	
-	public static String getTrackNumber(Tag tag) {
-		return tag.getFirst(FieldKey.TRACK);
+	public String getYear() {
+		return getTag().getFirst(FieldKey.YEAR);
 	}
 	
-	public static Artwork getArtwork(Tag tag) {
-		return tag.getFirstArtwork();
+	public String getTrackNumber() {
+		return getTag().getFirst(FieldKey.TRACK);
+	}
+	
+	public Artwork getArtwork() {
+		return getTag().getFirstArtwork();
+	}
+
+	/**
+	 * @return the srcFile
+	 */
+	public File getSrcFile() {
+		return srcFile;
+	}
+
+	/**
+	 * @param srcFile the srcFile to set
+	 */
+	public void setSrcFile(File srcFile) {
+		this.srcFile = srcFile;
+	}
+
+	/**
+	 * @return the tag
+	 */
+	public Tag getTag() {
+		return tag;
+	}
+
+	/**
+	 * @param tag the tag to set
+	 */
+	public void setTag(Tag tag) {
+		this.tag = tag;
 	}
 }
