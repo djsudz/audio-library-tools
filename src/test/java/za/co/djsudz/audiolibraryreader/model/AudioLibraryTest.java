@@ -10,8 +10,6 @@ import java.io.File;
 import org.jaudiotagger.audio.AudioFile;
 import org.junit.jupiter.api.Test;
 
-import za.co.djsudz.audiolibraryreader.input.AudioLibraryReader;
-
 /**
  * @author Sudheer
  *
@@ -63,14 +61,6 @@ class AudioLibraryTest {
 		AudioFile sampleAudioFile = audioLibary.getAudioFiles().get(0);
 		String sampleAudioFileName = "sampleAudioMp3.mp3";
 		assertTrue(sampleAudioFileName.equals(sampleAudioFile.getFile().getName()));
-	}
-
-	/**
-	 * Test method for {@link za.co.djsudz.audiolibraryreader.model.AudioLibrary#setAudioFiles(java.util.ArrayList)}.
-	 */
-	@Test
-	void testSetAudioFiles() {
-		fail("Not yet implemented");
 	}
 
 }
