@@ -90,7 +90,7 @@ class AudioTagReaderTest {
 	
 	@Test
 	void testGetArtwork() {
-		File sampleArtworkFile = new File("src/test/resources/sampleAudioDirectory/sample_album_art.jpg");
+		File sampleArtworkFile = new File("src/test/resources/sampleAudioDirectory/sample_album_art_700x700.jpg");
 
 		assertTrue(sampleArtworkFile.exists());
 

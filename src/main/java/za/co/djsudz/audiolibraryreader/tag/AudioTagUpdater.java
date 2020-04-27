@@ -15,33 +15,31 @@ import org.jaudiotagger.tag.images.Artwork;
  */
 public class AudioTagUpdater {
 	
-	public static Tag updateArtist(Tag tag, String newArtist) {	
+	public static void updateArtist(Tag tag, String newArtist) {	
 		try {
 			tag.setField(FieldKey.ARTIST, newArtist);
 		} catch (KeyNotFoundException | FieldDataInvalidException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return tag;
 	}
 
-	public static Tag updateAlbumArtist(Tag tag, String newAlbumArtist) {
+	public static void updateAlbumArtist(Tag tag, String newAlbumArtist) {
 		try {
 			tag.setField(FieldKey.ALBUM_ARTIST, newAlbumArtist);
 		} catch (KeyNotFoundException | FieldDataInvalidException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return tag;
 	}
 	
-	public static Tag updateArtwork(Tag tag, Artwork artwork) {
+	public static void updateArtwork(Tag tag, Artwork artwork) {
 		try {
+			tag.deleteArtworkField();
 			tag.setField(artwork);
 		} catch (FieldDataInvalidException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return tag;
 	}
 }
