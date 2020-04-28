@@ -23,11 +23,11 @@ public class AudioLibaryWriter {
 	
 	private void writeAudioFile(AudioFile audioFile) {
 		try {
-			AudioFileIO.write(audioFile);
+			String targetPath = AudioLibraryWriterUtils.getTargetPath(audioFile);
+			AudioFileIO.writeAs(audioFile, targetPath);
 		} catch (CannotWriteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
 }
