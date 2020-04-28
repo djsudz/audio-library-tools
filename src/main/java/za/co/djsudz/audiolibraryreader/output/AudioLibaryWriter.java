@@ -15,16 +15,19 @@ import za.co.djsudz.audiolibraryreader.model.AudioLibrary;
  */
 public class AudioLibaryWriter {
 	
-	public void writeLibrary(AudioLibrary audioLibrary) {
+	public void writeLibrary(AudioLibrary audioLibrary, String destinationPath) {
 		for (AudioFile audioFile : audioLibrary.getAudioFiles()) {
-			writeAudioFile(audioFile);
+			writeAudioFile(audioFile, destinationPath);
 		}
 	}
 	
-	private void writeAudioFile(AudioFile audioFile) {
+	private void writeAudioFile(AudioFile audioFile, String destinationPath) {
 		try {
-			String targetPath = AudioLibraryWriterUtils.getTargetPath(audioFile);
-			AudioFileIO.writeAs(audioFile, targetPath);
+			//String basePath = "C:/Temp/Music";
+			String targetPath = AudioLibraryWriterUtils.getTargetPath(audioFile, destinationPath);
+			boolean created = AudioLibraryWriterUtils.createTargetPathDirectories(targetPath);
+			if (created)
+				AudioFileIO.writeAs(audioFile, targetPath);
 		} catch (CannotWriteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

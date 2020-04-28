@@ -37,8 +37,24 @@ class AudioLibraryWriterUtilsTest {
 
 	@Test
 	void testGetTargetPath() {
-		String expectedTargetPath = "G:/Music/New Music 2020/04/sampleAudioMp3";
-		String targetPath = AudioLibraryWriterUtils.getTargetPath(sampleAudioFile);
+		String basePath = "G:/Music";
+		String expectedTargetPath = "G:/Music/New Music/2020/04/sampleAudioMp3";
+		String targetPath = AudioLibraryWriterUtils.getTargetPath(sampleAudioFile, basePath);
 		assertTrue(expectedTargetPath.equals(targetPath));
+	}
+	
+	@Test
+	void testCreateTargetPathDirectories() {
+		String basePath = "D:/Temp/Music";
+		String targetPath = "2018/06";
+		String filename = "sample.mp3";
+		String path = basePath + "/" + targetPath + "/" + filename;
+		boolean created = AudioLibraryWriterUtils.createTargetPathDirectories(path);
+		assertTrue(created);
+		File testFile = new File(basePath + "/" + targetPath);
+		assertTrue(testFile.exists());
+		testFile.delete();
+		testFile = testFile.getParentFile();
+		testFile.delete();
 	}
 }

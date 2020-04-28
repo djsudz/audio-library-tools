@@ -15,13 +15,13 @@ import org.jaudiotagger.audio.AudioFile;
  */
 public class AudioLibraryWriterUtils {
 	
-	public static String getTargetPath(AudioFile audioFile) {
+	public static String getTargetPath(AudioFile audioFile, String basePath) {
 		
 		File file = audioFile.getFile();
 		String filename = file.getName();
 		String filenameNoExt = filename.substring(0, filename.lastIndexOf("."));
 		String lastModified = getLastModified(file);
-		return "G:/Music/New Music " + lastModified + "/" + filenameNoExt;
+		return basePath + "/" + AudioLibraryWriterConstants.NEW_MUSIC + "/" + lastModified + "/" + filenameNoExt;
 	}
 
 	
@@ -30,5 +30,11 @@ public class AudioLibraryWriterUtils {
 		Date fileLastModifiedDate = new Date(fileLastModified);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM");
 		return dateFormat.format(fileLastModifiedDate);
+	}
+	
+	public static boolean createTargetPathDirectories(String targetPath) {
+		String path = targetPath.substring(0, targetPath.lastIndexOf("/"));
+		File pathDir = new File(path);
+		return pathDir.mkdirs();
 	}
 }
