@@ -18,7 +18,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import za.co.djsudz.audiolibraryreader.tag.AudioTagReader;
-import za.co.djsudz.audiolibraryreader.tag.AudioTagUpdater;
 
 /**
  * @author Sudheer
