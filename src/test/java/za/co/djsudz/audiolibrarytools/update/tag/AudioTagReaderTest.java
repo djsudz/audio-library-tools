@@ -1,4 +1,4 @@
-package za.co.djsudz.audiolibraryreader.tag;
+package za.co.djsudz.audiolibrarytools.update.tag;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,7 +13,7 @@ import org.jaudiotagger.tag.images.ArtworkFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import za.co.djsudz.audiolibrarytools.tag.AudioTagReader;
+import za.co.djsudz.audiolibrarytools.update.tag.AudioTagReader;
 
 class AudioTagReaderTest {
 	

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package za.co.djsudz.audiolibraryreader.tag;
+package za.co.djsudz.audiolibrarytools.update.tag;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,8 +19,8 @@ import org.jaudiotagger.tag.images.ArtworkFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import za.co.djsudz.audiolibrarytools.tag.AudioTagReader;
-import za.co.djsudz.audiolibrarytools.tag.AudioTagUpdater;
+import za.co.djsudz.audiolibrarytools.update.tag.AudioTagReader;
+import za.co.djsudz.audiolibrarytools.update.tag.AudioTagUpdater;
 
 /**
  * @author Sudheer
@@ -50,7 +50,7 @@ class AudioTagUpdaterTest {
 	}
 
 	/**
-	 * Test method for {@link za.co.djsudz.audiolibrarytools.tag.AudioTagUpdater#updateArtist(org.jaudiotagger.tag.Tag, java.lang.String)}.
+	 * Test method for {@link za.co.djsudz.audiolibrarytools.update.tag.AudioTagUpdater#updateArtist(org.jaudiotagger.tag.Tag, java.lang.String)}.
 	 */
 	@Test
 	void testUpdateArtist() {
@@ -64,7 +64,7 @@ class AudioTagUpdaterTest {
 	}
 
 	/**
-	 * Test method for {@link za.co.djsudz.audiolibrarytools.tag.AudioTagUpdater#updateAlbumArtist(org.jaudiotagger.tag.Tag, java.lang.String)}.
+	 * Test method for {@link za.co.djsudz.audiolibrarytools.update.tag.AudioTagUpdater#updateAlbumArtist(org.jaudiotagger.tag.Tag, java.lang.String)}.
 	 */
 	@Test
 	void testUpdateAlbumArtist() {
@@ -78,7 +78,7 @@ class AudioTagUpdaterTest {
 	}
 
 	/**
-	 * Test method for {@link za.co.djsudz.audiolibrarytools.tag.AudioTagUpdater#updateArtwork(org.jaudiotagger.tag.Tag, org.jaudiotagger.tag.images.Artwork)}.
+	 * Test method for {@link za.co.djsudz.audiolibrarytools.update.tag.AudioTagUpdater#updateArtwork(org.jaudiotagger.tag.Tag, org.jaudiotagger.tag.images.Artwork)}.
 	 */
 	@Test
 	void testUpdateArtwork() {

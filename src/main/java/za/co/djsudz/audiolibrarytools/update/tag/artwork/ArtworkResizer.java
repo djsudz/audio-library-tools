@@ -1,7 +1,7 @@
 /**
  * 
  */
-package za.co.djsudz.audiolibrarytools.tag.artwork;
+package za.co.djsudz.audiolibrarytools.update.tag.artwork;
 
 import java.io.IOException;
 

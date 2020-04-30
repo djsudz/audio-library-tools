@@ -1,7 +1,7 @@
 /**
  * 
  */
-package za.co.djsudz.audiolibrarytools.tag;
+package za.co.djsudz.audiolibrarytools.update.tag;
 
 import org.jaudiotagger.tag.FieldDataInvalidException;
 import org.jaudiotagger.tag.FieldKey;

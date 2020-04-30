@@ -1,4 +1,4 @@
-package za.co.djsudz.audiolibraryreader;
+package za.co.djsudz.audiolibrarytools;
 
 import io.quarkus.test.junit.NativeImageTest;
 

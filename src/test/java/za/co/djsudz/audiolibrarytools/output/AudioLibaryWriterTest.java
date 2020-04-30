@@ -1,7 +1,7 @@
 /**
  * 
  */
-package za.co.djsudz.audiolibraryreader.output;
+package za.co.djsudz.audiolibrarytools.output;
 
 import static org.junit.jupiter.api.Assertions.*;
 

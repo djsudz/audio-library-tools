@@ -1,7 +1,7 @@
 /**
  * 
  */
-package za.co.djsudz.audiolibrarytools.tag.artist;
+package za.co.djsudz.audiolibrarytools.update.tag.artist;
 
 /**
  * @author Sudheer
