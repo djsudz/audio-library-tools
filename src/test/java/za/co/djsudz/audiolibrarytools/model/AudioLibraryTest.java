@@ -10,8 +10,6 @@ import java.io.File;
 import org.jaudiotagger.audio.AudioFile;
 import org.junit.jupiter.api.Test;
 
-import za.co.djsudz.audiolibrarytools.model.AudioLibrary;
-
 /**
  * @author Sudheer
  *

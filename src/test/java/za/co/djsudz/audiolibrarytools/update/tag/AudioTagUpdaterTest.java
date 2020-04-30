@@ -19,9 +19,6 @@ import org.jaudiotagger.tag.images.ArtworkFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import za.co.djsudz.audiolibrarytools.update.tag.AudioTagReader;
-import za.co.djsudz.audiolibrarytools.update.tag.AudioTagUpdater;
-
 /**
  * @author Sudheer
  *
