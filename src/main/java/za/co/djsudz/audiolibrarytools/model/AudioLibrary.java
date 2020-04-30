@@ -1,7 +1,7 @@
 /**
  * 
  */
-package za.co.djsudz.audiolibraryreader.model;
+package za.co.djsudz.audiolibrarytools.model;
 
 import java.io.File;
 import java.io.IOException;

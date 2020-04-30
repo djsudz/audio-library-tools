@@ -1,13 +1,13 @@
 /**
  * 
  */
-package za.co.djsudz.audiolibraryreader.output;
+package za.co.djsudz.audiolibrarytools.output;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
 
-import za.co.djsudz.audiolibraryreader.model.AudioLibrary;
+import za.co.djsudz.audiolibrarytools.model.AudioLibrary;
 
 /**
  * @author Sudheer

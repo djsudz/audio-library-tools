@@ -1,7 +1,7 @@
 /**
  * 
  */
-package za.co.djsudz.audiolibraryreader.input.model;
+package za.co.djsudz.audiolibrarytools.input.model;
 
 import java.io.File;
 import java.io.FileFilter;

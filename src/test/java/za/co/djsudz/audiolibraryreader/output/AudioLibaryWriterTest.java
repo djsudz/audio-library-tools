@@ -9,7 +9,9 @@ import java.io.File;
 
 import org.junit.jupiter.api.Test;
 
-import za.co.djsudz.audiolibraryreader.model.AudioLibrary;
+import za.co.djsudz.audiolibrarytools.model.AudioLibrary;
+import za.co.djsudz.audiolibrarytools.output.AudioLibaryWriter;
+import za.co.djsudz.audiolibrarytools.output.AudioLibraryWriterConstants;
 
 /**
  * @author Sudheer
@@ -18,7 +20,7 @@ import za.co.djsudz.audiolibraryreader.model.AudioLibrary;
 class AudioLibaryWriterTest {
 
 	/**
-	 * Test method for {@link za.co.djsudz.audiolibraryreader.output.AudioLibaryWriter#writeLibrary(za.co.djsudz.audiolibraryreader.model.AudioLibrary)}.
+	 * Test method for {@link za.co.djsudz.audiolibrarytools.output.AudioLibaryWriter#writeLibrary(za.co.djsudz.audiolibrarytools.model.AudioLibrary)}.
 	 */
 	@Test
 	void testWriteLibrary() {

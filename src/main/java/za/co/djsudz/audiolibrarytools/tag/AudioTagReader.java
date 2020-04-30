@@ -1,7 +1,7 @@
 /**
  * 
  */
-package za.co.djsudz.audiolibraryreader.tag;
+package za.co.djsudz.audiolibrarytools.tag;
 
 import java.io.File;
 import java.io.IOException;

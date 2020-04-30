@@ -1,11 +1,11 @@
 /**
  * 
  */
-package za.co.djsudz.audiolibraryreader.input;
+package za.co.djsudz.audiolibrarytools.input;
 
 import java.io.File;
 
-import za.co.djsudz.audiolibraryreader.model.AudioLibrary;
+import za.co.djsudz.audiolibrarytools.model.AudioLibrary;
 
 /**
  * @author Sudheer

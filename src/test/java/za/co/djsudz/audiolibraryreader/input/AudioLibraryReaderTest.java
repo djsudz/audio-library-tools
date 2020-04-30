@@ -9,6 +9,8 @@ import java.io.File;
 
 import org.junit.jupiter.api.Test;
 
+import za.co.djsudz.audiolibrarytools.input.AudioLibraryReader;
+
 /**
  * @author Sudheer
  *

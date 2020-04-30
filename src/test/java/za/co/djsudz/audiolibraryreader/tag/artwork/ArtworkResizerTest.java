@@ -17,7 +17,8 @@ import org.jaudiotagger.tag.images.Artwork;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import za.co.djsudz.audiolibraryreader.tag.AudioTagReader;
+import za.co.djsudz.audiolibrarytools.tag.AudioTagReader;
+import za.co.djsudz.audiolibrarytools.tag.artwork.ArtworkResizer;
 
 /**
  * @author Sudheer
@@ -47,7 +48,7 @@ class ArtworkResizerTest {
 	}
 
 	/**
-	 * Test method for {@link za.co.djsudz.audiolibraryreader.tag.artwork.ArtworkResizer#resizeArtwork(org.jaudiotagger.tag.images.Artwork, int)}.
+	 * Test method for {@link za.co.djsudz.audiolibrarytools.tag.artwork.ArtworkResizer#resizeArtwork(org.jaudiotagger.tag.images.Artwork, int)}.
 	 */
 	@Test
 	void testResizeArtwork() {

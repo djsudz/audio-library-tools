@@ -10,6 +10,8 @@ import java.io.File;
 import org.jaudiotagger.audio.AudioFile;
 import org.junit.jupiter.api.Test;
 
+import za.co.djsudz.audiolibrarytools.model.AudioLibrary;
+
 /**
  * @author Sudheer
  *
@@ -17,7 +19,7 @@ import org.junit.jupiter.api.Test;
 class AudioLibraryTest {
 
 	/**
-	 * Test method for {@link za.co.djsudz.audiolibraryreader.model.AudioLibrary#AudioLibrary()}.
+	 * Test method for {@link za.co.djsudz.audiolibrarytools.model.AudioLibrary#AudioLibrary()}.
 	 */
 	@Test
 	void testAudioLibrary() {
@@ -27,7 +29,7 @@ class AudioLibraryTest {
 	}
 
 	/**
-	 * Test method for {@link za.co.djsudz.audiolibraryreader.model.AudioLibrary#AudioLibrary(java.io.File)}.
+	 * Test method for {@link za.co.djsudz.audiolibrarytools.model.AudioLibrary#AudioLibrary(java.io.File)}.
 	 */
 	@Test
 	void testAudioLibraryFile() {
@@ -46,7 +48,7 @@ class AudioLibraryTest {
 	}
 
 	/**
-	 * Test method for {@link za.co.djsudz.audiolibraryreader.model.AudioLibrary#AudioLibrary(java.lang.String)}.
+	 * Test method for {@link za.co.djsudz.audiolibrarytools.model.AudioLibrary#AudioLibrary(java.lang.String)}.
 	 */
 	@Test
 	void testAudioLibraryString() {

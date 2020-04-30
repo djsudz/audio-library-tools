@@ -14,6 +14,8 @@ import org.jaudiotagger.tag.TagException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import za.co.djsudz.audiolibrarytools.output.AudioLibraryWriterUtils;
+
 class AudioLibraryWriterUtilsTest {
 	
 	private static AudioFile sampleAudioFile = null;
