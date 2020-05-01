@@ -34,6 +34,7 @@ class AudioLibraryUpdaterTest {
 		
 		//Update Library
 		AudioLibraryUpdater audioLibraryUpdater = new AudioLibraryUpdater(audioLibrary);
+		audioLibraryUpdater.setRequiredImageSize(700);
 		audioLibraryUpdater.updateLibrary();
 		
 		//Check Updated Library

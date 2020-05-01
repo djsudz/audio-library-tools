@@ -21,6 +21,7 @@ import za.co.djsudz.audiolibrarytools.update.tag.artwork.ArtworkResizer;
 public class AudioLibraryUpdater {
 	
 	private AudioLibrary fAudioLibrary;
+	private int fRequiredImageSize;
 	
 	public AudioLibraryUpdater() {
 		//Default Constructor
@@ -28,6 +29,7 @@ public class AudioLibraryUpdater {
 	
 	public AudioLibraryUpdater(AudioLibrary audioLibrary) {
 		this.fAudioLibrary = audioLibrary;
+		this.fRequiredImageSize = 500;
 	}
 	
 	public void updateLibrary() {
@@ -47,7 +49,7 @@ public class AudioLibraryUpdater {
 		//Resize Album Art
 		try {
 			Artwork artwork = AudioTagUpdaterUtils.getArtwork(tag);
-			ArtworkResizer.resizeArtwork(artwork, 700);
+			ArtworkResizer.resizeArtwork(artwork, getRequiredImageSize());
 			audioTagUpdater.updateArtwork(artwork);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -67,6 +69,20 @@ public class AudioLibraryUpdater {
 	 */
 	public void setAudioLibrary(AudioLibrary audioLibrary) {
 		this.fAudioLibrary = audioLibrary;
+	}
+
+	/**
+	 * @return the requiredImageSize
+	 */
+	public int getRequiredImageSize() {
+		return fRequiredImageSize;
+	}
+
+	/**
+	 * @param requiredImageSize the requiredImageSize to set
+	 */
+	public void setRequiredImageSize(int requiredImageSize) {
+		this.fRequiredImageSize = requiredImageSize;
 	}
 
 }
