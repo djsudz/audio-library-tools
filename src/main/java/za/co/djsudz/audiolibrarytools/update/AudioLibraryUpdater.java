@@ -3,8 +3,16 @@
  */
 package za.co.djsudz.audiolibrarytools.update;
 
+import java.io.IOException;
+
 import org.jaudiotagger.audio.AudioFile;
+import org.jaudiotagger.tag.Tag;
+import org.jaudiotagger.tag.images.Artwork;
+
 import za.co.djsudz.audiolibrarytools.model.AudioLibrary;
+import za.co.djsudz.audiolibrarytools.update.tag.AudioTagUpdater;
+import za.co.djsudz.audiolibrarytools.update.tag.AudioTagUpdaterUtils;
+import za.co.djsudz.audiolibrarytools.update.tag.artwork.ArtworkResizer;
 
 /**
  * @author Sudheer
@@ -29,14 +37,22 @@ public class AudioLibraryUpdater {
 	}
 	
 	private void updateAudioFile(AudioFile audioFile) {
-		//TODO: Get Tag
+		//Get Tag
+		Tag tag = audioFile.getTag();
 		
-		//TODO: Update Artist to be the same as the Album Artist
+		//Update Album Artist to be the same as the Artist
+		AudioTagUpdater audioTagUpdater = new AudioTagUpdater(tag);
+		audioTagUpdater.updateAlbumArtist(AudioTagUpdaterUtils.getArtist(tag));
 		
-		//TODO: Resize Album Art
-		
-		//TODO: Update Album Art to resized Artwork
-
+		//Resize Album Art
+		try {
+			Artwork artwork = AudioTagUpdaterUtils.getArtwork(tag);
+			ArtworkResizer.resizeArtwork(artwork, 500);
+			audioTagUpdater.updateArtwork(artwork);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
