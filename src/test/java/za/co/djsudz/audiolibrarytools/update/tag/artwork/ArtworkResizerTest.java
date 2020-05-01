@@ -54,8 +54,8 @@ class ArtworkResizerTest {
 		Artwork artwork = tag.getFirstArtwork();
 		
 		artwork.setImageFromData();
-		assertEquals(700, artwork.getHeight());
-		assertEquals(700, artwork.getWidth());
+		assertEquals(1297, artwork.getHeight());
+		assertEquals(1297, artwork.getWidth());
 		
 		try {
 			ArtworkResizer.resizeArtwork(artwork, 500);

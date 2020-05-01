@@ -29,8 +29,8 @@ class AudioLibraryUpdaterTest {
 		//Check Artwork size before update
 		Artwork artwork = tag.getFirstArtwork();
 		artwork.setImageFromData();
-		assertEquals(700, artwork.getWidth());
-		assertEquals(700, artwork.getHeight());
+		assertEquals(1297, artwork.getWidth());
+		assertEquals(1297, artwork.getHeight());
 		
 		//Update Library
 		AudioLibraryUpdater audioLibraryUpdater = new AudioLibraryUpdater(audioLibrary);
@@ -49,8 +49,8 @@ class AudioLibraryUpdaterTest {
 		//Check Artwork size after update
 		Artwork updatedArtwork = updatedTag.getFirstArtwork();
 		updatedArtwork.setImageFromData();
-		assertEquals(500, updatedArtwork.getWidth());
-		assertEquals(500, updatedArtwork.getHeight());
+		assertEquals(700, updatedArtwork.getWidth());
+		assertEquals(700, updatedArtwork.getHeight());
 	}
 
 }

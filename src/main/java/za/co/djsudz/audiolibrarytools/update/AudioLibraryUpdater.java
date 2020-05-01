@@ -47,7 +47,7 @@ public class AudioLibraryUpdater {
 		//Resize Album Art
 		try {
 			Artwork artwork = AudioTagUpdaterUtils.getArtwork(tag);
-			ArtworkResizer.resizeArtwork(artwork, 500);
+			ArtworkResizer.resizeArtwork(artwork, 700);
 			audioTagUpdater.updateArtwork(artwork);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
