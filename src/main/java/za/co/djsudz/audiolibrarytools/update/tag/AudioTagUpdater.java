@@ -15,31 +15,55 @@ import org.jaudiotagger.tag.images.Artwork;
  */
 public class AudioTagUpdater {
 	
-	public static void updateArtist(Tag tag, String newArtist) {	
+	private Tag fTag;
+	
+	public AudioTagUpdater() {
+		//Default Constructor
+	}
+	
+	public AudioTagUpdater(Tag tag) {
+		this.fTag = tag;
+	}
+	
+	public void updateArtist(String newArtist) {	
 		try {
-			tag.setField(FieldKey.ARTIST, newArtist);
+			getTag().setField(FieldKey.ARTIST, newArtist);
 		} catch (KeyNotFoundException | FieldDataInvalidException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public static void updateAlbumArtist(Tag tag, String newAlbumArtist) {
+	public void updateAlbumArtist(String newAlbumArtist) {
 		try {
-			tag.setField(FieldKey.ALBUM_ARTIST, newAlbumArtist);
+			getTag().setField(FieldKey.ALBUM_ARTIST, newAlbumArtist);
 		} catch (KeyNotFoundException | FieldDataInvalidException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public static void updateArtwork(Tag tag, Artwork artwork) {
+	public void updateArtwork(Artwork artwork) {
 		try {
-			tag.deleteArtworkField();
-			tag.setField(artwork);
+			getTag().deleteArtworkField();
+			getTag().setField(artwork);
 		} catch (FieldDataInvalidException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * @return the tag
+	 */
+	public Tag getTag() {
+		return fTag;
+	}
+
+	/**
+	 * @param tag the tag to set
+	 */
+	public void setTag(Tag tag) {
+		this.fTag = tag;
 	}
 }

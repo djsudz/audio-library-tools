@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.File;
 import java.io.IOException;
 
+import org.jaudiotagger.audio.AudioFile;
+import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
@@ -16,8 +18,6 @@ import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.images.Artwork;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import za.co.djsudz.audiolibrarytools.update.tag.AudioTagReader;
 
 /**
  * @author Sudheer
@@ -29,14 +29,14 @@ class ArtworkResizerTest {
 	
 	@BeforeAll
 	private static void init() {
-		File sampleAudioFile = new File("src/test/resources/sampleAudioDirectory/sampleAudioMp3.mp3");
+		File sampleFile = new File("src/test/resources/sampleAudioDirectory/sampleAudioMp3.mp3");
 		
 		//Check Sample Files Exist
-		assertTrue(sampleAudioFile.exists());
+		assertTrue(sampleFile.exists());
 				
 		try {
-			AudioTagReader audioTagReader = new AudioTagReader(sampleAudioFile);
-			tag = audioTagReader.getTag();
+			AudioFile sampleAudioFile = AudioFileIO.read(sampleFile);
+			tag = sampleAudioFile.getTag();
 			assertNotNull(tag);
 		} catch (CannotReadException | IOException | TagException | ReadOnlyFileException
 				| InvalidAudioFrameException e) {

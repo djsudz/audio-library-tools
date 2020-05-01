@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.File;
 import java.io.IOException;
 
+import org.jaudiotagger.audio.AudioFile;
+import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
@@ -26,17 +28,19 @@ import org.junit.jupiter.api.Test;
 class AudioTagUpdaterTest {
 	
 	private static Tag tag;
+	private static AudioTagUpdater audioTagUpdater;
 	
 	@BeforeAll
 	private static void init() {
-		File sampleAudioFile = new File("src/test/resources/sampleAudioDirectory/sampleAudioMp3.mp3");
+		File sampleFile = new File("src/test/resources/sampleAudioDirectory/sampleAudioMp3.mp3");
 		
 		//Check Sample Files Exist
-		assertTrue(sampleAudioFile.exists());
+		assertTrue(sampleFile.exists());
 				
 		try {
-			AudioTagReader audioTagReader = new AudioTagReader(sampleAudioFile);
-			tag = audioTagReader.getTag();
+			AudioFile sampleAudioFile = AudioFileIO.read(sampleFile);
+			tag = sampleAudioFile.getTag();
+			audioTagUpdater = new AudioTagUpdater(tag);
 			assertNotNull(tag);
 		} catch (CannotReadException | IOException | TagException | ReadOnlyFileException
 				| InvalidAudioFrameException e) {
@@ -55,7 +59,7 @@ class AudioTagUpdaterTest {
 		String newArtist = "New Artist";
 		
 		assertTrue(oldArtist.equals(tag.getFirst(FieldKey.ARTIST)));
-		AudioTagUpdater.updateArtist(tag, newArtist);
+		audioTagUpdater.updateArtist(newArtist);
 		String newTagArtist = tag.getFirst(FieldKey.ARTIST);
 		assertTrue(newTagArtist.equals(newArtist));
 	}
@@ -69,9 +73,9 @@ class AudioTagUpdaterTest {
 		String newAlbumArtist = "New Album Artist";
 		
 		assertTrue(oldAlbumArtist.equals(tag.getFirst(FieldKey.ALBUM_ARTIST)));
-		AudioTagUpdater.updateArtist(tag, newAlbumArtist);
-		String newTagArtist = tag.getFirst(FieldKey.ARTIST);
-		assertTrue(newTagArtist.equals(newAlbumArtist));
+		audioTagUpdater.updateAlbumArtist(newAlbumArtist);
+		String newTagAlbumArtist = tag.getFirst(FieldKey.ALBUM_ARTIST);
+		assertTrue(newTagAlbumArtist.equals(newAlbumArtist));
 	}
 
 	/**
@@ -97,7 +101,7 @@ class AudioTagUpdaterTest {
 			assertTrue(oldArtwork.getMimeType().equals(tagArtwork.getMimeType()));
 
 			assertTrue(oldArtworkFile.exists());
-			AudioTagUpdater.updateArtwork(tag, newArtwork);
+			audioTagUpdater.updateArtwork(newArtwork);
 			
 			Artwork newTagArtwork = tag.getFirstArtwork();
 			assertEquals(newArtwork.getBinaryData().length, newTagArtwork.getBinaryData().length);

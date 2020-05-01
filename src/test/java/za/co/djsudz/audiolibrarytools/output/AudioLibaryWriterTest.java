@@ -18,7 +18,7 @@ import za.co.djsudz.audiolibrarytools.model.AudioLibrary;
 class AudioLibaryWriterTest {
 
 	/**
-	 * Test method for {@link za.co.djsudz.audiolibrarytools.output.AudioLibaryWriter#writeLibrary(za.co.djsudz.audiolibrarytools.model.AudioLibrary)}.
+	 * Test method for {@link za.co.djsudz.audiolibrarytools.output.AudioLibraryWriter#writeLibrary(za.co.djsudz.audiolibrarytools.model.AudioLibrary)}.
 	 */
 	@Test
 	void testWriteLibrary() {
@@ -26,8 +26,8 @@ class AudioLibaryWriterTest {
 		String destinationPath = "D:/Temp/Music";
 		AudioLibrary audioLibrary = new AudioLibrary(audioLibraryPath, true);
 		
-		AudioLibaryWriter audioLibraryWriter = new AudioLibaryWriter();
-		audioLibraryWriter.writeLibrary(audioLibrary, destinationPath);
+		AudioLibraryWriter audioLibraryWriter = new AudioLibraryWriter(audioLibrary);
+		audioLibraryWriter.writeLibrary(destinationPath);
 		
 		File outputFile = new File(destinationPath + "/" + AudioLibraryWriterConstants.NEW_MUSIC + "/2020/04/sampleAudioMp3.mp3");
 		assertTrue(outputFile.exists());

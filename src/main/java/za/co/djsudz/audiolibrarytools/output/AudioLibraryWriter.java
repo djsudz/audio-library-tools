@@ -13,10 +13,20 @@ import za.co.djsudz.audiolibrarytools.model.AudioLibrary;
  * @author Sudheer
  *
  */
-public class AudioLibaryWriter {
+public class AudioLibraryWriter {
 	
-	public void writeLibrary(AudioLibrary audioLibrary, String destinationPath) {
-		for (AudioFile audioFile : audioLibrary.getAudioFiles()) {
+	private AudioLibrary fAudioLibrary;
+	
+	public AudioLibraryWriter() {
+		//Default Constructor
+	}
+	
+	public AudioLibraryWriter(AudioLibrary audioLibrary) {
+		this.fAudioLibrary = audioLibrary;
+	}
+	
+	public void writeLibrary(String destinationPath) {
+		for (AudioFile audioFile : getAudioLibrary().getAudioFiles()) {
 			writeAudioFile(audioFile, destinationPath);
 		}
 	}
@@ -32,5 +42,19 @@ public class AudioLibaryWriter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * @return the audioLibrary
+	 */
+	public AudioLibrary getAudioLibrary() {
+		return fAudioLibrary;
+	}
+
+	/**
+	 * @param audioLibrary the audioLibrary to set
+	 */
+	public void setAudioLibrary(AudioLibrary audioLibrary) {
+		this.fAudioLibrary = audioLibrary;
 	}
 }
