@@ -26,22 +26,36 @@ public class AudioLibraryWriter {
 	}
 	
 	public void writeLibrary(String destinationPath) {
+		System.out.println("----------------------");
+		System.out.println("Writing Audio Library");
+		System.out.println("----------------------");
+		
+		System.out.println("Destination Path is: " + destinationPath);
 		for (AudioFile audioFile : getAudioLibrary().getAudioFiles()) {
 			writeAudioFile(audioFile, destinationPath);
 		}
+		System.out.println("--------------------------");
+		System.out.println("Done Writing Audio Library");
+		System.out.println("--------------------------");
 	}
 	
 	private void writeAudioFile(AudioFile audioFile, String destinationPath) {
 		try {
-			//String basePath = "C:/Temp/Music";
+			System.out.println("Writing Audio File: " + audioFile.getFile().getName());
+			
 			String targetPath = AudioLibraryWriterUtils.getTargetPath(audioFile, destinationPath);
+			System.out.println("Target Path is: " + targetPath);
+			
 			boolean created = AudioLibraryWriterUtils.createTargetPathDirectories(targetPath);
-			if (created)
-				AudioFileIO.writeAs(audioFile, targetPath);
+			if (created) {
+				System.out.println("Created Target Path");
+			}		
+			AudioFileIO.writeAs(audioFile, targetPath);
+			System.out.println("Writing Complete.");
 		} catch (CannotWriteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("An error occured while attempting to write '" + audioFile.getFile().getName() + "', skipping.");
 		}
+		System.out.println("===================================================================");
 	}
 
 	/**

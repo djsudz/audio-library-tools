@@ -29,7 +29,7 @@ class AudioLibaryWriterTest {
 		AudioLibraryWriter audioLibraryWriter = new AudioLibraryWriter(audioLibrary);
 		audioLibraryWriter.writeLibrary(destinationPath);
 		
-		File outputFile = new File(destinationPath + "/" + AudioLibraryWriterConstants.NEW_MUSIC + "/2020/04/sampleAudioMp3.mp3");
+		File outputFile = new File(destinationPath + "/" + AudioLibraryWriterConstants.NEW_MUSIC + "/2020/05/sampleAudioMp3.mp3");
 		assertTrue(outputFile.exists());
 		while (!outputFile.getName().equals("Music")) {
 			outputFile.delete();

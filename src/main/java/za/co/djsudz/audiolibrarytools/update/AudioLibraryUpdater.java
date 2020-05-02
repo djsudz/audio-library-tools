@@ -33,28 +33,68 @@ public class AudioLibraryUpdater {
 	}
 	
 	public void updateLibrary() {
+		System.out.println("----------------------");
+		System.out.println("Updating Audio Library");
+		System.out.println("----------------------");
 		for (AudioFile audioFile : getAudioLibrary().getAudioFiles()) {
 			updateAudioFile(audioFile);
 		}
+		System.out.println("---------------------------");
+		System.out.println("Done Updating Audio Library");
+		System.out.println("---------------------------");
 	}
 	
 	private void updateAudioFile(AudioFile audioFile) {
+		System.out.println();
+		System.out.println("Updating Audio File: " + audioFile.getFile().getName());
+		
 		//Get Tag
 		Tag tag = audioFile.getTag();
-		
-		//Update Album Artist to be the same as the Artist
 		AudioTagUpdater audioTagUpdater = new AudioTagUpdater(tag);
-		audioTagUpdater.updateAlbumArtist(AudioTagUpdaterUtils.getArtist(tag));
+		
+		System.out.println("Checking Album Artist...");
+		//Update Album Artist to be the same as the Artist
+		String artist = AudioTagUpdaterUtils.getArtist(tag);
+		String albumArtist = AudioTagUpdaterUtils.getAlbumArtist(tag);
+		
+		System.out.println("Current Artist: " + artist + ", Current Album Artist: " + albumArtist);
+		
+		if (artist.equals(albumArtist)) {
+			System.out.println("Artist and Album Artist are the same, skipping");
+		}
+		else {
+			System.out.println("Updating Album Artist to match Artist");
+			
+			audioTagUpdater.updateAlbumArtist(AudioTagUpdaterUtils.getArtist(tag));
+		}
 		
 		//Resize Album Art
-		try {
-			Artwork artwork = AudioTagUpdaterUtils.getArtwork(tag);
-			ArtworkResizer.resizeArtwork(artwork, getRequiredImageSize());
-			audioTagUpdater.updateArtwork(artwork);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		System.out.println("Checking Artwork Size...");
+		Artwork artwork = AudioTagUpdaterUtils.getArtwork(tag);
+		if (artwork != null) {
+			try {
+				artwork.setImageFromData();
+				int w = artwork.getWidth();
+				int h = artwork.getHeight();
+				System.out.println("Current Artwork size: " + w + "x" + h);
+				if (w > getRequiredImageSize() || h > getRequiredImageSize()) {
+					System.out.println("Resizing Artwork to " + getRequiredImageSize() + "x" + getRequiredImageSize());
+					ArtworkResizer.resizeArtwork(artwork, getRequiredImageSize());
+					audioTagUpdater.updateArtwork(artwork);
+				}
+				else {
+					System.out.println("Artwork is smaller than required size, skipping resizing.");
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		else {
+			System.out.println("No Artwork found, skipping resizing.");
+		}
+		
+		System.out.println("=============================================================================");
 	}
 
 	/**

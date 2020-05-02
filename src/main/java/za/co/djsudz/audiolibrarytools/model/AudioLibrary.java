@@ -36,7 +36,7 @@ public class AudioLibrary {
 	
 	public AudioLibrary(File audioLibaryDirectory, boolean recurse) {
 		setAudioFiles(getAudioFilesFromSourceDir(audioLibaryDirectory, recurse));
-		setAudioFileTotal(this.fAudioFiles.size());
+		setAudioFileTotal(getAudioFiles().size());
 	}
 	
 	public AudioLibrary(String audioLibaryPath) {
@@ -50,9 +50,13 @@ public class AudioLibrary {
 	public ArrayList<AudioFile> getAudioFilesFromSourceDir(File audioLibraryDirectory, boolean recurse) {
 		ArrayList<AudioFile> audioFiles = new ArrayList<>();
 		
+		System.out.println("-------------------------------");
+		System.out.println("Reading Audio Library Directory");
+		System.out.println("-------------------------------");
 		File[] files = audioLibraryDirectory.listFiles(new AudioFileFilter(recurse));
 		for (File file : files) {
 			try {
+				System.out.println("Found Audio File: " + file.getName());
 				audioFiles.add(AudioFileIO.read(file));
 			} catch (CannotReadException | IOException | TagException | ReadOnlyFileException
 					| InvalidAudioFrameException e) {
@@ -60,6 +64,10 @@ public class AudioLibrary {
 				e.printStackTrace();
 			}
 		}
+		System.out.println("\nTotal Audio Files: " + audioFiles.size());
+		System.out.println("------------------------------------");
+		System.out.println("Done Reading Audio Library Directory");
+		System.out.println("------------------------------------");
 		return audioFiles;
 	}
 	
