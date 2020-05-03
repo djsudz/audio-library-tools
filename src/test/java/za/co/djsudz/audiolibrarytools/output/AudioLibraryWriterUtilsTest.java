@@ -30,7 +30,7 @@ class AudioLibraryWriterUtilsTest {
 	
 	@Test
 	void testGetLastModified() {
-		String expectedLastModified = "2020/04";
+		String expectedLastModified = "2020/05";
 		String lastModified = AudioLibraryWriterUtils.getLastModified(sampleAudioFile.getFile());
 		assertTrue(expectedLastModified.equals(lastModified));
 	}
@@ -38,14 +38,14 @@ class AudioLibraryWriterUtilsTest {
 	@Test
 	void testGetTargetPath() {
 		String basePath = "G:/Music";
-		String expectedTargetPath = "G:/Music/New Music/2020/04/sampleAudioMp3";
+		String expectedTargetPath = "G:/Music/New Music/2020/05/sampleAudioMp3";
 		String targetPath = AudioLibraryWriterUtils.getTargetPath(sampleAudioFile, basePath);
 		assertTrue(expectedTargetPath.equals(targetPath));
 	}
 	
 	@Test
 	void testCreateTargetPathDirectories() {
-		String basePath = "D:/Temp/Music";
+		String basePath = "src/test/resources/sampleOutputDirectory/Music";
 		String targetPath = "2018/06";
 		String filename = "sample.mp3";
 		String path = basePath + "/" + targetPath + "/" + filename;

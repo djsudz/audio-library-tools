@@ -23,7 +23,7 @@ class AudioLibaryWriterTest {
 	@Test
 	void testWriteLibrary() {
 		String audioLibraryPath = "src/test/resources/sampleAudioDirectory";
-		String destinationPath = "D:/Temp/Music";
+		String destinationPath = "src/test/resources/sampleOutputDirectory/Music";
 		AudioLibrary audioLibrary = new AudioLibrary(audioLibraryPath, true);
 		
 		AudioLibraryWriter audioLibraryWriter = new AudioLibraryWriter(audioLibrary);

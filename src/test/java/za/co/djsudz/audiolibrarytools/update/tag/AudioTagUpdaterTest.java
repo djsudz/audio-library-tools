@@ -83,7 +83,7 @@ class AudioTagUpdaterTest {
 	 */
 	@Test
 	void testUpdateArtwork() {
-		File oldArtworkFile = new File("src/test/resources/sampleAudioDirectory/sample_album_art_700x700.jpg");
+		File oldArtworkFile = new File("src/test/resources/sampleAudioDirectory/sample_album_art_1000x1000.jpg");
 		File newArtworkFile = new File("src/test/resources/sampleAudioDirectory/sample_album_art_180x180.png");
 		
 		Artwork oldArtwork;

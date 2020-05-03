@@ -96,7 +96,7 @@ class AudioTagUpdaterUtilsTest {
 	
 	@Test
 	void testGetArtwork() {
-		File sampleArtworkFile = new File("src/test/resources/sampleAudioDirectory/sample_album_art_700x700.jpg");
+		File sampleArtworkFile = new File("src/test/resources/sampleAudioDirectory/sample_album_art_1000x1000.jpg");
 
 		assertTrue(sampleArtworkFile.exists());
 
