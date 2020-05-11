@@ -31,7 +31,7 @@
         var msg = $("#msg").val();
         console.log("Button clicked! Message is " + msg);           
         var req = new XMLHttpRequest();
-        req.open("POST", "/alt/start");
+        req.open("POST", "/alt/process");
         req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         req.send("message=" + msg);
     }

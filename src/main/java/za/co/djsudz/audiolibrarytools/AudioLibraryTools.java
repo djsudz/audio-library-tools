@@ -16,55 +16,47 @@ import za.co.djsudz.audiolibrarytools.update.AudioLibraryUpdater;
  */
 public class AudioLibraryTools {
 	
-	File libraryBasePath;
-	int requiredImageSize = 500;
+	private File fLibraryBasePath;
+	private File fLibrartOutputPath;
+	private int fRequiredImageSize = 500;
 	
-	public void checkArgs(String[] args) {
-        if (args.length == 0)
-        {
-            System.err.println("usage AudioLibraryTools <AudioLibPath> <RequiredImageSize>");
-            System.err.println("      You must enter the audio library directory and required image size");
-            System.exit(1);
-        }
-        else if (args.length > 2)
-        {
-            System.err.println("usage AudioLibraryTools <AudioLibPath> <RequiredImageSize>");
-            System.err.println("      Only two parameters accepted");
-            System.exit(1);
-        }
-        libraryBasePath = new File(args[0]);
-        if (args.length == 2) {
-	        try {
-	        	requiredImageSize = Integer.parseInt(args[1]);
-	        }
-	        catch(NumberFormatException ex) {
-	        	System.err.println("usage AudioLibraryTools <AudioLibPath> <RequiredImageSize>");
-	        	System.err.println("RequiredImageSize paramater must be an Integer value");
-	        	System.exit(1);
-	        }
-        }
-        
-        if (!libraryBasePath.isDirectory())
-        {
-            System.err.println("usage AudioLibraryTools <AudioLibPath> <RequiredImageSize>");
-            System.err.println("      AudioLibPath " + args[0] + " could not be found");
-            System.exit(1);
-        }
+	private static final int DEFAULT_IMAGE_SIZE = 500;
+	
+	public AudioLibraryTools(File libraryBasePath, File libraryOutputPath, int requiredImageSize) {
+		this.fLibraryBasePath = libraryBasePath;
+		this.fLibrartOutputPath = libraryOutputPath;
+		this.fRequiredImageSize = requiredImageSize;
+	}
+	
+	public AudioLibraryTools(File libraryBasePath, File libraryOutputPath) {
+		this(libraryBasePath, libraryOutputPath, DEFAULT_IMAGE_SIZE);
+	}
+	
+	public AudioLibraryTools(File libraryBasePath) {
+		this(libraryBasePath, libraryBasePath, DEFAULT_IMAGE_SIZE);
+	}
+	
+	public AudioLibraryTools(File libraryBasePath, int requiredImageSize) {
+		this(libraryBasePath, libraryBasePath, requiredImageSize);
+	}
+	
+	public AudioLibraryTools(String libraryBasePath, String libraryOutputPath, int requiredImageSize) {
+		this(new File(libraryBasePath), new File(libraryOutputPath), requiredImageSize);
 	}
 	
 	public void procesLibrary() {
 		long startTime = System.currentTimeMillis();
 		//Read Audio Library
-		AudioLibrary audioLibrary = AudioLibraryReader.readAudioLibrary(this.libraryBasePath);
+		AudioLibrary audioLibrary = AudioLibraryReader.readAudioLibrary(this.fLibraryBasePath);
 		
 		//Update Library
 		AudioLibraryUpdater audioLibraryUpdater = new AudioLibraryUpdater(audioLibrary);
-		audioLibraryUpdater.setRequiredImageSize(this.requiredImageSize);
+		audioLibraryUpdater.setRequiredImageSize(this.fRequiredImageSize);
 		audioLibraryUpdater.updateLibrary();
 		
 		//Write Library
 		AudioLibraryWriter audioLibraryWriter = new AudioLibraryWriter(audioLibrary);
-		audioLibraryWriter.writeLibrary(libraryBasePath.getAbsolutePath());
+		audioLibraryWriter.writeLibrary(fLibraryBasePath.getAbsolutePath());
 		
 		long endTime = System.currentTimeMillis();
 		
@@ -73,12 +65,45 @@ public class AudioLibraryTools {
 	}
 
 	/**
-	 * @param args
+	 * @return the libraryBasePath
 	 */
-	public static void main(String[] args) {
-		AudioLibraryTools audioLibraryTools = new AudioLibraryTools();
-		audioLibraryTools.checkArgs(args);
-		audioLibraryTools.procesLibrary();
+	public File getLibraryBasePath() {
+		return fLibraryBasePath;
+	}
+
+	/**
+	 * @param libraryBasePath the libraryBasePath to set
+	 */
+	public void setLibraryBasePath(File libraryBasePath) {
+		this.fLibraryBasePath = libraryBasePath;
+	}
+
+	/**
+	 * @return the librartOutputPath
+	 */
+	public File getLibrartOutputPath() {
+		return fLibrartOutputPath;
+	}
+
+	/**
+	 * @param librartOutputPath the librartOutputPath to set
+	 */
+	public void setLibrartOutputPath(File librartOutputPath) {
+		this.fLibrartOutputPath = librartOutputPath;
+	}
+
+	/**
+	 * @return the requiredImageSize
+	 */
+	public int getRequiredImageSize() {
+		return fRequiredImageSize;
+	}
+
+	/**
+	 * @param requiredImageSize the requiredImageSize to set
+	 */
+	public void setRequiredImageSize(int requiredImageSize) {
+		this.fRequiredImageSize = requiredImageSize;
 	}
 
 }
