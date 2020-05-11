@@ -17,14 +17,14 @@ import za.co.djsudz.audiolibrarytools.update.AudioLibraryUpdater;
 public class AudioLibraryTools {
 	
 	private File fLibraryBasePath;
-	private File fLibrartOutputPath;
+	private File fLibraryOutputPath;
 	private int fRequiredImageSize = 500;
 	
 	private static final int DEFAULT_IMAGE_SIZE = 500;
 	
 	public AudioLibraryTools(File libraryBasePath, File libraryOutputPath, int requiredImageSize) {
 		this.fLibraryBasePath = libraryBasePath;
-		this.fLibrartOutputPath = libraryOutputPath;
+		this.fLibraryOutputPath = libraryOutputPath;
 		this.fRequiredImageSize = requiredImageSize;
 	}
 	
@@ -56,7 +56,7 @@ public class AudioLibraryTools {
 		
 		//Write Library
 		AudioLibraryWriter audioLibraryWriter = new AudioLibraryWriter(audioLibrary);
-		audioLibraryWriter.writeLibrary(fLibraryBasePath.getAbsolutePath());
+		audioLibraryWriter.writeLibrary(fLibraryOutputPath.getAbsolutePath());
 		
 		long endTime = System.currentTimeMillis();
 		
@@ -79,17 +79,17 @@ public class AudioLibraryTools {
 	}
 
 	/**
-	 * @return the librartOutputPath
+	 * @return the libraryOutputPath
 	 */
-	public File getLibrartOutputPath() {
-		return fLibrartOutputPath;
+	public File getLibraryOutputPath() {
+		return fLibraryOutputPath;
 	}
 
 	/**
-	 * @param librartOutputPath the librartOutputPath to set
+	 * @param libraryOutputPath the libraryOutputPath to set
 	 */
-	public void setLibrartOutputPath(File librartOutputPath) {
-		this.fLibrartOutputPath = librartOutputPath;
+	public void setLibraryOutputPath(File libraryOutputPath) {
+		this.fLibraryOutputPath = libraryOutputPath;
 	}
 
 	/**
