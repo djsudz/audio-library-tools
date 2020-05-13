@@ -9,6 +9,7 @@ import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.images.Artwork;
 
+import za.co.djsudz.audiolibrarytools.messaging.MessageLogger;
 import za.co.djsudz.audiolibrarytools.model.AudioLibrary;
 import za.co.djsudz.audiolibrarytools.update.tag.AudioTagUpdater;
 import za.co.djsudz.audiolibrarytools.update.tag.AudioTagUpdaterUtils;
@@ -22,9 +23,15 @@ public class AudioLibraryUpdater {
 	
 	private AudioLibrary fAudioLibrary;
 	private int fRequiredImageSize;
+	private MessageLogger messageLogger;
 	
 	public AudioLibraryUpdater() {
 		//Default Constructor
+	}
+	
+	public AudioLibraryUpdater(MessageLogger messageLogger) {
+		this.messageLogger = messageLogger;
+		this.fRequiredImageSize = 500;
 	}
 	
 	public AudioLibraryUpdater(AudioLibrary audioLibrary) {
@@ -32,58 +39,57 @@ public class AudioLibraryUpdater {
 		this.fRequiredImageSize = 500;
 	}
 	
-	public void updateLibrary() {
-		System.out.println("----------------------");
-		System.out.println("Updating Audio Library");
-		System.out.println("----------------------");
-		for (AudioFile audioFile : getAudioLibrary().getAudioFiles()) {
+	public void updateLibrary(AudioLibrary audioLibrary) {
+		this.messageLogger.logMessage("----------------------");
+		this.messageLogger.logMessage("Updating Audio Library");
+		this.messageLogger.logMessage("----------------------");
+		for (AudioFile audioFile : audioLibrary.getAudioFiles()) {
 			updateAudioFile(audioFile);
 		}
-		System.out.println("---------------------------");
-		System.out.println("Done Updating Audio Library");
-		System.out.println("---------------------------");
+		this.messageLogger.logMessage("---------------------------");
+		this.messageLogger.logMessage("Done Updating Audio Library");
+		this.messageLogger.logMessage("---------------------------");
 	}
 	
 	private void updateAudioFile(AudioFile audioFile) {
-		System.out.println();
-		System.out.println("Updating Audio File: " + audioFile.getFile().getName());
+		this.messageLogger.logMessage("");
+		this.messageLogger.logMessage("Updating Audio File: " + audioFile.getFile().getName());
 		
 		//Get Tag
 		Tag tag = audioFile.getTag();
 		AudioTagUpdater audioTagUpdater = new AudioTagUpdater(tag);
 		
-		System.out.println("Checking Album Artist...");
+		this.messageLogger.logMessage("Checking Album Artist...");
 		//Update Album Artist to be the same as the Artist
 		String artist = AudioTagUpdaterUtils.getArtist(tag);
 		String albumArtist = AudioTagUpdaterUtils.getAlbumArtist(tag);
 		
-		System.out.println("Current Artist: " + artist + ", Current Album Artist: " + albumArtist);
+		this.messageLogger.logMessage("Current Artist: " + artist + ", Current Album Artist: " + albumArtist);
 		
 		if (artist.equals(albumArtist)) {
-			System.out.println("Artist and Album Artist are the same, skipping");
+			this.messageLogger.logMessage("Artist and Album Artist are the same, skipping");
 		}
 		else {
-			System.out.println("Updating Album Artist to match Artist");
-			
+			this.messageLogger.logMessage("Updating Album Artist to match Artist");	
 			audioTagUpdater.updateAlbumArtist(AudioTagUpdaterUtils.getArtist(tag));
 		}
 		
 		//Resize Album Art
-		System.out.println("Checking Artwork Size...");
+		this.messageLogger.logMessage("Checking Artwork Size...");
 		Artwork artwork = AudioTagUpdaterUtils.getArtwork(tag);
 		if (artwork != null) {
 			try {
 				artwork.setImageFromData();
 				int w = artwork.getWidth();
 				int h = artwork.getHeight();
-				System.out.println("Current Artwork size: " + w + "x" + h);
+				this.messageLogger.logMessage("Current Artwork size: " + w + "x" + h);
 				if (w > getRequiredImageSize() || h > getRequiredImageSize()) {
-					System.out.println("Resizing Artwork to " + getRequiredImageSize() + "x" + getRequiredImageSize());
+					this.messageLogger.logMessage("Resizing Artwork to " + getRequiredImageSize() + "x" + getRequiredImageSize());
 					ArtworkResizer.resizeArtwork(artwork, getRequiredImageSize());
 					audioTagUpdater.updateArtwork(artwork);
 				}
 				else {
-					System.out.println("Artwork is smaller than required size, skipping resizing.");
+					this.messageLogger.logMessage("Artwork is smaller than required size, skipping resizing.");
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -91,10 +97,10 @@ public class AudioLibraryUpdater {
 			}
 		}
 		else {
-			System.out.println("No Artwork found, skipping resizing.");
+			this.messageLogger.logMessage("No Artwork found, skipping resizing.");
 		}
 		
-		System.out.println("=============================================================================");
+		this.messageLogger.logMessage("=============================================================================");
 	}
 
 	/**

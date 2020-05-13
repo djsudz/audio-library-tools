@@ -7,6 +7,7 @@ import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
 
+import za.co.djsudz.audiolibrarytools.messaging.MessageLogger;
 import za.co.djsudz.audiolibrarytools.model.AudioLibrary;
 
 /**
@@ -15,47 +16,52 @@ import za.co.djsudz.audiolibrarytools.model.AudioLibrary;
  */
 public class AudioLibraryWriter {
 	
+	private MessageLogger messageLogger;
 	private AudioLibrary fAudioLibrary;
 	
 	public AudioLibraryWriter() {
 		//Default Constructor
 	}
 	
+	public AudioLibraryWriter(MessageLogger messageLogger) {
+		this.messageLogger = messageLogger;
+	}
+	
 	public AudioLibraryWriter(AudioLibrary audioLibrary) {
 		this.fAudioLibrary = audioLibrary;
 	}
 	
-	public void writeLibrary(String destinationPath) {
-		System.out.println("----------------------");
-		System.out.println("Writing Audio Library");
-		System.out.println("----------------------");
+	public void writeLibrary(AudioLibrary audioLibrary, String destinationPath) {
+		this.messageLogger.logMessage("----------------------");
+		this.messageLogger.logMessage("Writing Audio Library");
+		this.messageLogger.logMessage("----------------------");
 		
-		System.out.println("Destination Path is: " + destinationPath);
-		for (AudioFile audioFile : getAudioLibrary().getAudioFiles()) {
+		this.messageLogger.logMessage("Destination Path is: " + destinationPath);
+		for (AudioFile audioFile : audioLibrary.getAudioFiles()) {
 			writeAudioFile(audioFile, destinationPath);
 		}
-		System.out.println("--------------------------");
-		System.out.println("Done Writing Audio Library");
-		System.out.println("--------------------------");
+		this.messageLogger.logMessage("--------------------------");
+		this.messageLogger.logMessage("Done Writing Audio Library");
+		this.messageLogger.logMessage("--------------------------");
 	}
 	
 	private void writeAudioFile(AudioFile audioFile, String destinationPath) {
 		try {
-			System.out.println("Writing Audio File: " + audioFile.getFile().getName());
+			this.messageLogger.logMessage("Writing Audio File: " + audioFile.getFile().getName());
 			
 			String targetPath = AudioLibraryWriterUtils.getTargetPath(audioFile, destinationPath);
-			System.out.println("Target Path is: " + targetPath);
+			this.messageLogger.logMessage("Target Path is: " + targetPath);
 			
 			boolean created = AudioLibraryWriterUtils.createTargetPathDirectories(targetPath);
 			if (created) {
-				System.out.println("Created Target Path");
+				this.messageLogger.logMessage("Created Target Path");
 			}		
 			AudioFileIO.writeAs(audioFile, targetPath);
-			System.out.println("Writing Complete.");
+			this.messageLogger.logMessage("Writing Complete.");
 		} catch (CannotWriteException e) {
-			System.out.println("An error occured while attempting to write '" + audioFile.getFile().getName() + "', skipping.");
+			this.messageLogger.logMessage("An error occured while attempting to write '" + audioFile.getFile().getName() + "', skipping.");
 		}
-		System.out.println("===================================================================");
+		this.messageLogger.logMessage("===================================================================");
 	}
 
 	/**

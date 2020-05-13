@@ -5,6 +5,7 @@ package za.co.djsudz.audiolibrarytools.input;
 
 import java.io.File;
 
+import za.co.djsudz.audiolibrarytools.messaging.MessageLogger;
 import za.co.djsudz.audiolibrarytools.model.AudioLibrary;
 
 /**
@@ -12,7 +13,9 @@ import za.co.djsudz.audiolibrarytools.model.AudioLibrary;
  *
  */
 public class AudioLibraryReader {
-	public static AudioLibrary readAudioLibrary(File audioLibraryPath) {
-		return new AudioLibrary(audioLibraryPath);
+	public static AudioLibrary readAudioLibrary(File audioLibraryPath, MessageLogger messageLogger) {
+		AudioLibrary audioLibrary = new AudioLibrary(messageLogger);
+		audioLibrary.setAudioFilesFromSourceDir(audioLibraryPath, false);
+		return audioLibrary;
 	}
 }

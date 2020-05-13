@@ -9,6 +9,7 @@ import java.io.File;
 
 import org.junit.jupiter.api.Test;
 
+import za.co.djsudz.audiolibrarytools.messaging.MessageLogger;
 import za.co.djsudz.audiolibrarytools.model.AudioLibrary;
 
 /**
@@ -22,12 +23,14 @@ class AudioLibaryWriterTest {
 	 */
 	@Test
 	void testWriteLibrary() {
-		String audioLibraryPath = "src/test/resources/sampleAudioDirectory";
+		MessageLogger messageLogger = new MessageLogger();
+		File audioLibraryPath = new File("src/test/resources/sampleAudioDirectory");
 		String destinationPath = "src/test/resources/sampleOutputDirectory/Music";
-		AudioLibrary audioLibrary = new AudioLibrary(audioLibraryPath, true);
+		AudioLibrary audioLibrary = new AudioLibrary(messageLogger);
+		audioLibrary.setAudioFilesFromSourceDir(audioLibraryPath, true);
 		
-		AudioLibraryWriter audioLibraryWriter = new AudioLibraryWriter(audioLibrary);
-		audioLibraryWriter.writeLibrary(destinationPath);
+		AudioLibraryWriter audioLibraryWriter = new AudioLibraryWriter(messageLogger);
+		audioLibraryWriter.writeLibrary(audioLibrary, destinationPath);
 		
 		File outputFile = new File(destinationPath + "/" + AudioLibraryWriterConstants.NEW_MUSIC + "/2020/05/sampleAudioMp3.mp3");
 		assertTrue(outputFile.exists());

@@ -19,7 +19,7 @@ public class MessageEmitter {
 	@Channel("alt-message-stream")
 	Emitter<String> emitter;
 	
-	public void semd(String message ) {
+	public void send(String message) {
 		emitter.send(message);
 	}
 }

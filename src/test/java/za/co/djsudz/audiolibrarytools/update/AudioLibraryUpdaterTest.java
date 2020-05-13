@@ -2,21 +2,27 @@ package za.co.djsudz.audiolibrarytools.update;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
+
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.images.Artwork;
 import org.junit.jupiter.api.Test;
 
+import za.co.djsudz.audiolibrarytools.messaging.MessageLogger;
 import za.co.djsudz.audiolibrarytools.model.AudioLibrary;
 
 class AudioLibraryUpdaterTest {
 
 	@Test
 	void testUpdateLibrary() {
-		String audioLibraryPath = "src/test/resources/sampleAudioDirectory";
+		MessageLogger messageLogger = new MessageLogger();
 		
-		AudioLibrary audioLibrary = new AudioLibrary(audioLibraryPath, true);
+		File audioLibraryPath = new File("src/test/resources/sampleAudioDirectory");
+		
+		AudioLibrary audioLibrary = new AudioLibrary(messageLogger);
+		audioLibrary.setAudioFilesFromSourceDir(audioLibraryPath, true);
 		assertNotNull(audioLibrary);
 		assertTrue(audioLibrary.getAudioFiles().size() == 1);
 		
@@ -33,9 +39,9 @@ class AudioLibraryUpdaterTest {
 		assertEquals(1297, artwork.getHeight());
 		
 		//Update Library
-		AudioLibraryUpdater audioLibraryUpdater = new AudioLibraryUpdater(audioLibrary);
+		AudioLibraryUpdater audioLibraryUpdater = new AudioLibraryUpdater(messageLogger);
 		audioLibraryUpdater.setRequiredImageSize(700);
-		audioLibraryUpdater.updateLibrary();
+		audioLibraryUpdater.updateLibrary(audioLibrary);
 		
 		//Check Updated Library
 		assertNotNull(audioLibrary);

@@ -15,6 +15,8 @@ import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.TagException;
 
+import za.co.djsudz.audiolibrarytools.messaging.MessageLogger;
+
 /**
  * @author Sudheer
  *
@@ -23,11 +25,17 @@ public class AudioLibrary {
 	
 	private ArrayList<AudioFile> fAudioFiles;
 	private int fAudioFileTotal;
+	private MessageLogger messageLogger;
 	
 	public AudioLibrary() {
 		//Default Constructor
 		this.fAudioFiles = new ArrayList<>();
 		this.fAudioFileTotal = 0;
+	}
+	
+	public AudioLibrary(MessageLogger messageLogger) {
+		this();
+		this.messageLogger = messageLogger;
 	}
 	
 	public AudioLibrary(File audioLibraryDirectory) {
@@ -47,27 +55,50 @@ public class AudioLibrary {
 		this(new File(audioLibraryPath), recurse);
 	}
 	
-	public ArrayList<AudioFile> getAudioFilesFromSourceDir(File audioLibraryDirectory, boolean recurse) {
-		ArrayList<AudioFile> audioFiles = new ArrayList<>();
-		
-		System.out.println("-------------------------------");
-		System.out.println("Reading Audio Library Directory");
-		System.out.println("-------------------------------");
+	public void setAudioFilesFromSourceDir(File audioLibraryDirectory, boolean recurse) {
+	
+		messageLogger.logMessage("-------------------------------");
+		messageLogger.logMessage("Reading Audio Library Directory");
+		messageLogger.logMessage("-------------------------------");
 		File[] files = audioLibraryDirectory.listFiles(new AudioFileFilter(recurse));
 		for (File file : files) {
 			try {
-				System.out.println("Found Audio File: " + file.getName());
-				audioFiles.add(AudioFileIO.read(file));
+				messageLogger.logMessage("Found Audio File: " + file.getName());
+				this.fAudioFiles.add(AudioFileIO.read(file));
 			} catch (CannotReadException | IOException | TagException | ReadOnlyFileException
 					| InvalidAudioFrameException e) {
-				System.out.println("Unable to read file: " + file.getAbsolutePath() + ", Skipping it...");
+				messageLogger.logMessage("Unable to read file: " + file.getAbsolutePath() + ", Skipping it...");
 				e.printStackTrace();
 			}
 		}
-		System.out.println("\nTotal Audio Files: " + audioFiles.size());
-		System.out.println("------------------------------------");
-		System.out.println("Done Reading Audio Library Directory");
-		System.out.println("------------------------------------");
+		this.fAudioFileTotal = this.fAudioFiles.size();
+		messageLogger.logMessage("Total Audio Files: " + this.fAudioFileTotal);
+		messageLogger.logMessage("------------------------------------");
+		messageLogger.logMessage("Done Reading Audio Library Directory");
+		messageLogger.logMessage("------------------------------------");
+	}
+	
+	public ArrayList<AudioFile> getAudioFilesFromSourceDir(File audioLibraryDirectory, boolean recurse) {
+		ArrayList<AudioFile> audioFiles = new ArrayList<>();
+		
+		messageLogger.logMessage("-------------------------------");
+		messageLogger.logMessage("Reading Audio Library Directory");
+		messageLogger.logMessage("-------------------------------");
+		File[] files = audioLibraryDirectory.listFiles(new AudioFileFilter(recurse));
+		for (File file : files) {
+			try {
+				messageLogger.logMessage("Found Audio File: " + file.getName());
+				audioFiles.add(AudioFileIO.read(file));
+			} catch (CannotReadException | IOException | TagException | ReadOnlyFileException
+					| InvalidAudioFrameException e) {
+				messageLogger.logMessage("Unable to read file: " + file.getAbsolutePath() + ", Skipping it...");
+				e.printStackTrace();
+			}
+		}
+		messageLogger.logMessage("\nTotal Audio Files: " + audioFiles.size());
+		messageLogger.logMessage("------------------------------------");
+		messageLogger.logMessage("Done Reading Audio Library Directory");
+		messageLogger.logMessage("------------------------------------");
 		return audioFiles;
 	}
 	

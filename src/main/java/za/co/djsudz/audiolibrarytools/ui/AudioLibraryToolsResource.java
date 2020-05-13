@@ -1,7 +1,5 @@
 package za.co.djsudz.audiolibrarytools.ui;
 
-import java.io.File;
-
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -16,6 +14,7 @@ import org.jboss.resteasy.annotations.SseElementType;
 import org.reactivestreams.Publisher;
 
 import za.co.djsudz.audiolibrarytools.AudioLibraryTools;
+import za.co.djsudz.audiolibrarytools.messaging.MessageLogger;
 
 @Path("/alt")
 public class AudioLibraryToolsResource {
@@ -23,6 +22,10 @@ public class AudioLibraryToolsResource {
 	@Inject
 	@Channel("alt-message-stream")
 	Publisher<String> messages;
+	
+	
+	@Inject
+	MessageLogger messageLogger;
 	
 	@GET
 	@Path("/stream")
@@ -39,8 +42,8 @@ public class AudioLibraryToolsResource {
 	public String process(@FormParam("libraryBasePath") String libraryBasePath,
 							@FormParam("libraryOutputPath") String libraryOutputPath,
 							@FormParam("requiredImageSize") int requiredImageSize) {
-		AudioLibraryTools audioLibraryTools = new AudioLibraryTools(libraryBasePath, libraryOutputPath, requiredImageSize);
-		audioLibraryTools.procesLibrary();
+		AudioLibraryTools audioLibraryTools = new AudioLibraryTools(messageLogger);
+		audioLibraryTools.procesLibrary(libraryBasePath, libraryOutputPath, requiredImageSize);
 		return "done";
 	}
 
@@ -48,10 +51,10 @@ public class AudioLibraryToolsResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/process")
     public String hello() {
-    	AudioLibraryTools audioLibraryTools = new AudioLibraryTools(new File("D:/Temp/Music"), 700);
+    	AudioLibraryTools audioLibraryTools = new AudioLibraryTools(messageLogger);
     	//audioLibraryTools.setLibraryBasePath(new File("D:/Temp/Music"));
     	//audioLibraryTools.setRequiredImageSize(700);
-    	audioLibraryTools.procesLibrary();
+    	audioLibraryTools.procesLibrary("D:/Temp/Music", "D:/Temp/Music", 700);
         return "done";
     }
 }
