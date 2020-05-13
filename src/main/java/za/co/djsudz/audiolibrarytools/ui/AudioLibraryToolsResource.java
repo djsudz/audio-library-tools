@@ -14,6 +14,7 @@ import org.jboss.resteasy.annotations.SseElementType;
 import org.reactivestreams.Publisher;
 
 import za.co.djsudz.audiolibrarytools.AudioLibraryTools;
+import za.co.djsudz.audiolibrarytools.messaging.MessageEmitter;
 import za.co.djsudz.audiolibrarytools.messaging.MessageLogger;
 
 @Path("/alt")
@@ -23,6 +24,8 @@ public class AudioLibraryToolsResource {
 	@Channel("alt-message-stream")
 	Publisher<String> messages;
 	
+	@Inject
+	MessageEmitter messageEmitter;
 	
 	@Inject
 	MessageLogger messageLogger;
