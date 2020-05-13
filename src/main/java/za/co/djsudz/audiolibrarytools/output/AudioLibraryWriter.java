@@ -27,9 +27,9 @@ public class AudioLibraryWriter {
 		this.messageLogger = messageLogger;
 	}
 	
-	public AudioLibraryWriter(AudioLibrary audioLibrary) {
-		this.fAudioLibrary = audioLibrary;
-	}
+//	public AudioLibraryWriter(AudioLibrary audioLibrary) {
+//		this.fAudioLibrary = audioLibrary;
+//	}
 	
 	public void writeLibrary(AudioLibrary audioLibrary, String destinationPath) {
 		this.messageLogger.logMessage("----------------------");

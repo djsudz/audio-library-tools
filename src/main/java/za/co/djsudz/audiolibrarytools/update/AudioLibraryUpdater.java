@@ -34,10 +34,10 @@ public class AudioLibraryUpdater {
 		this.fRequiredImageSize = 500;
 	}
 	
-	public AudioLibraryUpdater(AudioLibrary audioLibrary) {
-		this.fAudioLibrary = audioLibrary;
-		this.fRequiredImageSize = 500;
-	}
+//	public AudioLibraryUpdater(AudioLibrary audioLibrary) {
+//		this.fAudioLibrary = audioLibrary;
+//		this.fRequiredImageSize = 500;
+//	}
 	
 	public void updateLibrary(AudioLibrary audioLibrary) {
 		this.messageLogger.logMessage("----------------------");
