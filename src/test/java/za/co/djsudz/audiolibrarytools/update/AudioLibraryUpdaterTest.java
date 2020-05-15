@@ -8,16 +8,29 @@ import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.images.Artwork;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
 
+import za.co.djsudz.audiolibrarytools.messaging.MessageEmitter;
 import za.co.djsudz.audiolibrarytools.messaging.MessageLogger;
 import za.co.djsudz.audiolibrarytools.model.AudioLibrary;
 
 class AudioLibraryUpdaterTest {
+	
+	static MessageLogger messageLogger;
+	
+	@BeforeAll
+	static void init() {
+		MessageEmitter messageEmitterMock = Mockito.mock(MessageEmitter.class);
+		Mockito.doNothing().when(messageEmitterMock).send(ArgumentMatchers.anyString());
+		
+		messageLogger = new MessageLogger(messageEmitterMock);
+	}
 
 	@Test
 	void testUpdateLibrary() {
-		MessageLogger messageLogger = new MessageLogger();
 		
 		File audioLibraryPath = new File("src/test/resources/sampleAudioDirectory");
 		

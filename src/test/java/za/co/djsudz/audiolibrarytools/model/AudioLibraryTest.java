@@ -10,7 +10,10 @@ import java.io.File;
 import org.jaudiotagger.audio.AudioFile;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
 
+import za.co.djsudz.audiolibrarytools.messaging.MessageEmitter;
 import za.co.djsudz.audiolibrarytools.messaging.MessageLogger;
 
 /**
@@ -23,7 +26,10 @@ class AudioLibraryTest {
 	
 	@BeforeAll
 	static void init() {
-		messageLogger = new MessageLogger();
+		MessageEmitter messageEmitterMock = Mockito.mock(MessageEmitter.class);
+		Mockito.doNothing().when(messageEmitterMock).send(ArgumentMatchers.anyString());
+		
+		messageLogger = new MessageLogger(messageEmitterMock);
 	}
 
 	/**

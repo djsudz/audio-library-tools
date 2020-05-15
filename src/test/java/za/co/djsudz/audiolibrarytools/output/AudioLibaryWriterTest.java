@@ -7,8 +7,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
 
+import za.co.djsudz.audiolibrarytools.messaging.MessageEmitter;
 import za.co.djsudz.audiolibrarytools.messaging.MessageLogger;
 import za.co.djsudz.audiolibrarytools.model.AudioLibrary;
 
@@ -17,13 +21,22 @@ import za.co.djsudz.audiolibrarytools.model.AudioLibrary;
  *
  */
 class AudioLibaryWriterTest {
+	
+	static MessageLogger messageLogger;
+	
+	@BeforeAll
+	static void init() {
+		MessageEmitter messageEmitterMock = Mockito.mock(MessageEmitter.class);
+		Mockito.doNothing().when(messageEmitterMock).send(ArgumentMatchers.anyString());
+		
+		messageLogger = new MessageLogger(messageEmitterMock);
+	}
 
 	/**
 	 * Test method for {@link za.co.djsudz.audiolibrarytools.output.AudioLibraryWriter#writeLibrary(za.co.djsudz.audiolibrarytools.model.AudioLibrary)}.
 	 */
 	@Test
 	void testWriteLibrary() {
-		MessageLogger messageLogger = new MessageLogger();
 		File audioLibraryPath = new File("src/test/resources/sampleAudioDirectory");
 		String destinationPath = "src/test/resources/sampleOutputDirectory/Music";
 		AudioLibrary audioLibrary = new AudioLibrary(messageLogger);
