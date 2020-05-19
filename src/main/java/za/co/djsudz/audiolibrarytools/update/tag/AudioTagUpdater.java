@@ -17,10 +17,6 @@ public class AudioTagUpdater {
 	
 	private Tag fTag;
 	
-	public AudioTagUpdater() {
-		//Default Constructor
-	}
-	
 	public AudioTagUpdater(Tag tag) {
 		this.fTag = tag;
 	}

@@ -19,49 +19,41 @@ public class AudioLibraryWriter {
 	private MessageLogger messageLogger;
 	private AudioLibrary fAudioLibrary;
 	
-	public AudioLibraryWriter() {
-		//Default Constructor
-	}
-	
 	public AudioLibraryWriter(MessageLogger messageLogger) {
 		this.messageLogger = messageLogger;
 	}
 	
-//	public AudioLibraryWriter(AudioLibrary audioLibrary) {
-//		this.fAudioLibrary = audioLibrary;
-//	}
-	
 	public void writeLibrary(AudioLibrary audioLibrary, String destinationPath) {
-		this.messageLogger.logMessage("----------------------");
-		this.messageLogger.logMessage("Writing Audio Library");
-		this.messageLogger.logMessage("----------------------");
+		messageLogger.logMessage("----------------------");
+		messageLogger.logMessage("Writing Audio Library");
+		messageLogger.logMessage("----------------------");
 		
-		this.messageLogger.logMessage("Destination Path is: " + destinationPath);
+		messageLogger.logMessage("Destination Path is: " + destinationPath);
 		for (AudioFile audioFile : audioLibrary.getAudioFiles()) {
 			writeAudioFile(audioFile, destinationPath);
 		}
-		this.messageLogger.logMessage("--------------------------");
-		this.messageLogger.logMessage("Done Writing Audio Library");
-		this.messageLogger.logMessage("--------------------------");
+		messageLogger.logMessage("--------------------------");
+		messageLogger.logMessage("Done Writing Audio Library");
+		messageLogger.logMessage("--------------------------");
 	}
 	
 	private void writeAudioFile(AudioFile audioFile, String destinationPath) {
 		try {
-			this.messageLogger.logMessage("Writing Audio File: " + audioFile.getFile().getName());
+			messageLogger.logMessage("Writing Audio File: " + audioFile.getFile().getName());
 			
 			String targetPath = AudioLibraryWriterUtils.getTargetPath(audioFile, destinationPath);
-			this.messageLogger.logMessage("Target Path is: " + targetPath);
+			messageLogger.logMessage("Target Path is: " + targetPath);
 			
 			boolean created = AudioLibraryWriterUtils.createTargetPathDirectories(targetPath);
 			if (created) {
-				this.messageLogger.logMessage("Created Target Path");
+				messageLogger.logMessage("Created Target Path");
 			}		
 			AudioFileIO.writeAs(audioFile, targetPath);
-			this.messageLogger.logMessage("Writing Complete.");
+			messageLogger.logMessage("Writing Complete.");
 		} catch (CannotWriteException e) {
-			this.messageLogger.logMessage("An error occured while attempting to write '" + audioFile.getFile().getName() + "', skipping.");
+			messageLogger.logMessage("An error occured while attempting to write '" + audioFile.getFile().getName() + "', skipping.");
 		}
-		this.messageLogger.logMessage("===================================================================");
+		messageLogger.logMessage("===================================================================");
 	}
 
 	/**

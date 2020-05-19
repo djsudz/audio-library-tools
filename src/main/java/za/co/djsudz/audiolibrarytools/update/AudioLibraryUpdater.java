@@ -24,72 +24,63 @@ public class AudioLibraryUpdater {
 	private AudioLibrary fAudioLibrary;
 	private int fRequiredImageSize;
 	private MessageLogger messageLogger;
-	
-	public AudioLibraryUpdater() {
-		//Default Constructor
-	}
-	
+
 	public AudioLibraryUpdater(MessageLogger messageLogger) {
 		this.messageLogger = messageLogger;
 		this.fRequiredImageSize = 500;
 	}
 	
-//	public AudioLibraryUpdater(AudioLibrary audioLibrary) {
-//		this.fAudioLibrary = audioLibrary;
-//		this.fRequiredImageSize = 500;
-//	}
-	
 	public void updateLibrary(AudioLibrary audioLibrary) {
-		this.messageLogger.logMessage("----------------------");
-		this.messageLogger.logMessage("Updating Audio Library");
-		this.messageLogger.logMessage("----------------------");
+		messageLogger.logMessage("----------------------");
+		messageLogger.logMessage("Updating Audio Library");
+		messageLogger.logMessage("----------------------");
 		for (AudioFile audioFile : audioLibrary.getAudioFiles()) {
 			updateAudioFile(audioFile);
 		}
-		this.messageLogger.logMessage("---------------------------");
-		this.messageLogger.logMessage("Done Updating Audio Library");
-		this.messageLogger.logMessage("---------------------------");
+		messageLogger.logMessage("---------------------------");
+		messageLogger.logMessage("Done Updating Audio Library");
+		messageLogger.logMessage("---------------------------");
 	}
 	
 	private void updateAudioFile(AudioFile audioFile) {
-		this.messageLogger.logMessage("");
-		this.messageLogger.logMessage("Updating Audio File: " + audioFile.getFile().getName());
+		messageLogger.logMessage("");
+		messageLogger.logMessage("Updating Audio File: " + audioFile.getFile().getName());
 		
 		//Get Tag
 		Tag tag = audioFile.getTag();
 		AudioTagUpdater audioTagUpdater = new AudioTagUpdater(tag);
 		
-		this.messageLogger.logMessage("Checking Album Artist...");
+		messageLogger.logMessage("Checking Album Artist...");
 		//Update Album Artist to be the same as the Artist
 		String artist = AudioTagUpdaterUtils.getArtist(tag);
 		String albumArtist = AudioTagUpdaterUtils.getAlbumArtist(tag);
 		
-		this.messageLogger.logMessage("Current Artist: " + artist + ", Current Album Artist: " + albumArtist);
+		messageLogger.logMessage("Current Artist: " + artist + ", Current Album Artist: " + albumArtist);
 		
 		if (artist.equals(albumArtist)) {
-			this.messageLogger.logMessage("Artist and Album Artist are the same, skipping");
+			messageLogger.logMessage("Artist and Album Artist are the same, skipping");
 		}
 		else {
-			this.messageLogger.logMessage("Updating Album Artist to match Artist");	
+			messageLogger.logMessage("Updating Album Artist to match Artist");	
 			audioTagUpdater.updateAlbumArtist(AudioTagUpdaterUtils.getArtist(tag));
 		}
 		
 		//Resize Album Art
-		this.messageLogger.logMessage("Checking Artwork Size...");
+		messageLogger.logMessage("Checking Artwork Size...");
 		Artwork artwork = AudioTagUpdaterUtils.getArtwork(tag);
 		if (artwork != null) {
 			try {
 				artwork.setImageFromData();
 				int w = artwork.getWidth();
 				int h = artwork.getHeight();
-				this.messageLogger.logMessage("Current Artwork size: " + w + "x" + h);
+				messageLogger.logMessage("Current Artwork size: " + w + "x" + h);
 				if (w > getRequiredImageSize() || h > getRequiredImageSize()) {
-					this.messageLogger.logMessage("Resizing Artwork to " + getRequiredImageSize() + "x" + getRequiredImageSize());
+					messageLogger.logMessage("Resizing Artwork to " + getRequiredImageSize() + "x" + getRequiredImageSize());
 					ArtworkResizer.resizeArtwork(artwork, getRequiredImageSize());
 					audioTagUpdater.updateArtwork(artwork);
 				}
 				else {
-					this.messageLogger.logMessage("Artwork is smaller than required size, skipping resizing.");
+					messageLogger.logMessage("Artwork is smaller than required size, skipping resizing.");
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -97,10 +88,10 @@ public class AudioLibraryUpdater {
 			}
 		}
 		else {
-			this.messageLogger.logMessage("No Artwork found, skipping resizing.");
+			messageLogger.logMessage("No Artwork found, skipping resizing.");
 		}
 		
-		this.messageLogger.logMessage("=============================================================================");
+		messageLogger.logMessage("=============================================================================");
 	}
 
 	/**
