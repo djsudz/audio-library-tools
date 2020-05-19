@@ -30,8 +30,7 @@ public class AudioLibraryTools {
 		
 		//Update Library
 		AudioLibraryUpdater audioLibraryUpdater = new AudioLibraryUpdater(messageLogger);
-		audioLibraryUpdater.setRequiredImageSize(requiredImageSize);
-		audioLibraryUpdater.updateLibrary(audioLibrary);
+		audioLibraryUpdater.updateLibrary(audioLibrary, requiredImageSize);
 		
 		//Write Library
 		AudioLibraryWriter audioLibraryWriter = new AudioLibraryWriter(messageLogger);

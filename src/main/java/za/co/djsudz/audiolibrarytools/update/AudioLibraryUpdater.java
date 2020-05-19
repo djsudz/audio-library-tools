@@ -21,28 +21,25 @@ import za.co.djsudz.audiolibrarytools.update.tag.artwork.ArtworkResizer;
  */
 public class AudioLibraryUpdater {
 	
-	private AudioLibrary fAudioLibrary;
-	private int fRequiredImageSize;
 	private MessageLogger messageLogger;
 
 	public AudioLibraryUpdater(MessageLogger messageLogger) {
 		this.messageLogger = messageLogger;
-		this.fRequiredImageSize = 500;
 	}
 	
-	public void updateLibrary(AudioLibrary audioLibrary) {
+	public void updateLibrary(AudioLibrary audioLibrary, int requiredImageSize) {
 		messageLogger.logMessage("----------------------");
 		messageLogger.logMessage("Updating Audio Library");
 		messageLogger.logMessage("----------------------");
 		for (AudioFile audioFile : audioLibrary.getAudioFiles()) {
-			updateAudioFile(audioFile);
+			updateAudioFile(audioFile, requiredImageSize);
 		}
 		messageLogger.logMessage("---------------------------");
 		messageLogger.logMessage("Done Updating Audio Library");
 		messageLogger.logMessage("---------------------------");
 	}
 	
-	private void updateAudioFile(AudioFile audioFile) {
+	private void updateAudioFile(AudioFile audioFile, int requiredImageSize) {
 		messageLogger.logMessage("");
 		messageLogger.logMessage("Updating Audio File: " + audioFile.getFile().getName());
 		
@@ -74,9 +71,9 @@ public class AudioLibraryUpdater {
 				int w = artwork.getWidth();
 				int h = artwork.getHeight();
 				messageLogger.logMessage("Current Artwork size: " + w + "x" + h);
-				if (w > getRequiredImageSize() || h > getRequiredImageSize()) {
-					messageLogger.logMessage("Resizing Artwork to " + getRequiredImageSize() + "x" + getRequiredImageSize());
-					ArtworkResizer.resizeArtwork(artwork, getRequiredImageSize());
+				if (w > requiredImageSize || h > requiredImageSize) {
+					messageLogger.logMessage("Resizing Artwork to " + requiredImageSize + "x" + requiredImageSize);
+					ArtworkResizer.resizeArtwork(artwork, requiredImageSize);
 					audioTagUpdater.updateArtwork(artwork);
 				}
 				else {
@@ -93,33 +90,4 @@ public class AudioLibraryUpdater {
 		
 		messageLogger.logMessage("=============================================================================");
 	}
-
-	/**
-	 * @return the audioLibrary
-	 */
-	public AudioLibrary getAudioLibrary() {
-		return fAudioLibrary;
-	}
-
-	/**
-	 * @param audioLibrary the audioLibrary to set
-	 */
-	public void setAudioLibrary(AudioLibrary audioLibrary) {
-		this.fAudioLibrary = audioLibrary;
-	}
-
-	/**
-	 * @return the requiredImageSize
-	 */
-	public int getRequiredImageSize() {
-		return fRequiredImageSize;
-	}
-
-	/**
-	 * @param requiredImageSize the requiredImageSize to set
-	 */
-	public void setRequiredImageSize(int requiredImageSize) {
-		this.fRequiredImageSize = requiredImageSize;
-	}
-
 }

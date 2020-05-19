@@ -53,8 +53,7 @@ class AudioLibraryUpdaterTest {
 		
 		//Update Library
 		AudioLibraryUpdater audioLibraryUpdater = new AudioLibraryUpdater(messageLogger);
-		audioLibraryUpdater.setRequiredImageSize(700);
-		audioLibraryUpdater.updateLibrary(audioLibrary);
+		audioLibraryUpdater.updateLibrary(audioLibrary, 700);
 		
 		//Check Updated Library
 		assertNotNull(audioLibrary);

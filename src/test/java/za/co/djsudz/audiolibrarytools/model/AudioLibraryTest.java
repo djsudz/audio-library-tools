@@ -37,7 +37,7 @@ class AudioLibraryTest {
 	 */
 	@Test
 	void testAudioLibrary() {
-		AudioLibrary audioLibrary = new AudioLibrary();
+		AudioLibrary audioLibrary = new AudioLibrary(messageLogger);
 		assertTrue(audioLibrary.getAudioFiles().isEmpty());
 		assertEquals(0, audioLibrary.getAudioFileTotal());
 	}
@@ -61,23 +61,5 @@ class AudioLibraryTest {
 		String sampleAudioFileName = "sampleAudioMp3.mp3";
 		assertTrue(sampleAudioFileName.equals(sampleAudioFile.getFile().getName()));
 	}
-
-//	/**
-//	 * Test method for {@link za.co.djsudz.audiolibrarytools.model.AudioLibrary#AudioLibrary(java.lang.String)}.
-//	 */
-//	@Test
-//	void testAudioLibraryString() {
-//		String sampleAudioPath = "src/test/resources/sampleAudioDirectory";
-//		
-//		AudioLibrary audioLibary = new AudioLibrary(sampleAudioPath);
-//		
-//		assertNotNull(audioLibary.getAudioFiles());
-//		assertEquals(1, audioLibary.getAudioFiles().size());
-//		assertEquals(1, audioLibary.getAudioFileTotal());
-//		
-//		AudioFile sampleAudioFile = audioLibary.getAudioFiles().get(0);
-//		String sampleAudioFileName = "sampleAudioMp3.mp3";
-//		assertTrue(sampleAudioFileName.equals(sampleAudioFile.getFile().getName()));
-//	}
 
 }
