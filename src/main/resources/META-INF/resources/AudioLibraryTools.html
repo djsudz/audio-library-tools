@@ -33,7 +33,9 @@
     
     var source = new EventSource("/alt/stream");
     source.onmessage = function (event) {
-        document.getElementById("msgLog").innerHTML += event.data + "<br/>";
+    	var msgLog = document.getElementById("msgLog");
+        msgLog.innerHTML += event.data + "<br/>";
+        msgLog.scrollIntoView({behavior : 'smooth', block : 'end'});
     };
     function submit() {
         var sourceLibPath = $("#sourceLibPath").val();

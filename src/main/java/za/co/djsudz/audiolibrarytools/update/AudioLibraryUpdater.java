@@ -4,6 +4,7 @@
 package za.co.djsudz.audiolibrarytools.update;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.tag.Tag;
@@ -31,16 +32,18 @@ public class AudioLibraryUpdater {
 		messageLogger.logMessage("----------------------");
 		messageLogger.logMessage("Updating Audio Library");
 		messageLogger.logMessage("----------------------");
-		for (AudioFile audioFile : audioLibrary.getAudioFiles()) {
-			updateAudioFile(audioFile, requiredImageSize);
+		int audioFileTotal = audioLibrary.getAudioFileTotal();
+		for (int count = 0; count < audioFileTotal; count ++) {
+			ArrayList<AudioFile> audioFiles = audioLibrary.getAudioFiles();
+			updateAudioFile(count + 1, audioFileTotal, audioFiles.get(count), requiredImageSize);
 		}
 		messageLogger.logMessage("---------------------------");
 		messageLogger.logMessage("Done Updating Audio Library");
 		messageLogger.logMessage("---------------------------");
 	}
 	
-	private void updateAudioFile(AudioFile audioFile, int requiredImageSize) {
-		messageLogger.logMessage("");
+	private void updateAudioFile(int audioFileNumber, int audioFileTotal, AudioFile audioFile, int requiredImageSize) {
+		messageLogger.logMessage("Audio File #" + audioFileNumber + " of " + audioFileTotal);
 		messageLogger.logMessage("Updating Audio File: " + audioFile.getFile().getName());
 		
 		//Get Tag
